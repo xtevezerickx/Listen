@@ -11,14 +11,17 @@ public class CDController {
 		return "cd/cadastrarCD";
 	}
 	
-	@RequestMapping("alterarCD")
+	@RequestMapping("listarCD")
 	public String formAlterarCD(){
-		return "cd/alterarCD";
+		return "cd/listarCD";
 	}
 	
 	@RequestMapping("adicionarCD")
 	public String AdicionarCD(){
-		//TODO faz a logica de adicionar
+		//TODO faz a logica de adicionar CD
 		return "cd/cadastrarCD";
 	}
+	
+	
+	
 }

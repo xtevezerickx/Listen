@@ -97,7 +97,7 @@ footer {
 						<th><a href="#" class="btn btn-primary btn-sm"> <span
 								class="glyphicon glyphicon-search"></span> Alterar
 						</a></th>
-						<th><a href="#" class="btn btn-danger btn-sm"> <span
+						<th><a href="removerCD" class="btn btn-danger btn-sm"> <span
 								class="glyphicon glyphicon-trash"></span> Remover
 						</a></th>
 					</tr>
