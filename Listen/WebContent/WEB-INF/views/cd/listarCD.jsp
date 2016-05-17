@@ -68,7 +68,7 @@ footer {
 					<li><a href="alterarCD">Alterar</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-				<li><a href="novoUsuario"><span class="glyphicon glyphicon-user"></span> Cadastre-se</a></li>
+				<li><a href="cadastrarUsuario"><span class="glyphicon glyphicon-user"></span> Cadastre-se</a></li>
 					<li><a href="login"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>

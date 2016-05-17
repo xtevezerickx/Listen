@@ -1,102 +1,71 @@
 package br.com.listen.model;
 
+import java.sql.Date;
+
 public class CDs {
 
-	private int codigoCD;
-	private int codigoArtista;
-	private int codigoGenero;
-	private String titulo;
+	private int idCD;
+	private String tituloCD;
 	private double preco;
-
-	public CDs() {
-		super();
+	private int dataLancamento;
+	private Date dataCriacao;
+	private String gravadora;
+	private int idArtista;
+	
+	public int getIdArtista() {
+		return idArtista;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + codigoArtista;
-		result = prime * result + codigoCD;
-		result = prime * result + codigoGenero;
-		long temp;
-		temp = Double.doubleToLongBits(preco);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
-		return result;
+	public void setIdArtista(int idArtista) {
+		this.idArtista = idArtista;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CDs other = (CDs) obj;
-		if (codigoArtista != other.codigoArtista)
-			return false;
-		if (codigoCD != other.codigoCD)
-			return false;
-		if (codigoGenero != other.codigoGenero)
-			return false;
-		if (Double.doubleToLongBits(preco) != Double
-				.doubleToLongBits(other.preco))
-			return false;
-		if (titulo == null) {
-			if (other.titulo != null)
-				return false;
-		} else if (!titulo.equals(other.titulo))
-			return false;
-		return true;
+	public String getGravadora() {
+		return gravadora;
 	}
-
-	@Override
-	public String toString() {
-		return "Código do CD: " + codigoCD + " | Código do Artista: "
-				+ codigoArtista + " | Código do gênero: " + codigoGenero
-				+ " | Título: " + titulo + " | Preço:" + preco + "\n";
+	public void setGravadora(String gravadora) {
+		this.gravadora = gravadora;
 	}
-
-	public int getCodigoCD() {
-		return codigoCD;
+	public int getIdCD() {
+		return idCD;
 	}
-
-	public void setCodigoCD(int codigoCD) {
-		this.codigoCD = codigoCD;
+	public void setIdCD(int idCD) {
+		this.idCD = idCD;
 	}
-
-	public int getCodigoArtista() {
-		return codigoArtista;
-	}
-
-	public void setCodigoArtista(int codigoArtista) {
-		this.codigoArtista = codigoArtista;
-	}
-
-	public int getCodigoGenero() {
-		return codigoGenero;
-	}
-
-	public void setCodigoGenero(int codigoGenero) {
-		this.codigoGenero = codigoGenero;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
+	
 	public double getPreco() {
 		return preco;
 	}
-
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
+	
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	public String getTituloCD() {
+		return tituloCD;
+	}
+	public void setTituloCD(String tituloCD) {
+		this.tituloCD = tituloCD;
+	}
+	public int getDataLancamento() {
+		return dataLancamento;
+	}
+	public void setDataLancamento(int dataLancamento) {
+		this.dataLancamento = dataLancamento;
+	}
+	@Override
+	public String toString() {
+		return "CDs [idCD=" + idCD + ", tituloCD=" + tituloCD + ", preco=" + preco + ", dataLancamento="
+				+ dataLancamento + ", dataCriacao=" + dataCriacao + ", gravadora=" + gravadora + ", idArtista="
+				+ idArtista + "]";
+	}
+	
+	
+	
+	
+
 
 }

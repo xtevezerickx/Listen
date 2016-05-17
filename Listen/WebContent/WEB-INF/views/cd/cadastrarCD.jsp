@@ -66,9 +66,10 @@ footer {
 					<li><a href="listarCD">Alterar</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-				<li><a href="novoUsuario"><span class="glyphicon glyphicon-user"></span> Cadastre-se</a></li>
-					<li><a href="login"><span class="glyphicon glyphicon-log-in"></span>
-							Login</a></li>
+					<li><a href="cadastrarUsuario"><span
+							class="glyphicon glyphicon-user"></span> Cadastre-se</a></li>
+					<li><a href="login"><span
+							class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
 			</div>
 		</div>
@@ -80,18 +81,17 @@ footer {
 				<h1>Cadastro de CD</h1>
 				<form class="form" method="post" action="adicionarCD">
 					<div class="form-group" style="width: 400px">
-						<label>Nome:</label> <input type="text" class="form-control"
-							id="nome" placeholder="Digite o titulo do CD"> <label>Genero:</label>
-						<input type="text" class="form-control" id="genero"
-							placeholder="Digite o genero do CD"> <label>Preco:</label>
-						<input type="text" class="form-control" id="preco"
-							placeholder="Digite o preço do CD"> <label>Artista:</label>
-						<input type="text" class="form-control" id="artista"
+						<label>Nome:</label>
+						<input type="text" class="form-control"	name="tituloCD" placeholder="Digite o titulo do CD"> 
+						<label>Preco:</label>
+						<input type="text" class="form-control" name="preco"  placeholder="Digite o preço do CD"> <label>idArtista:</label>
+						<input type="text" class="form-control" name="idArtista"
 							placeholder="Digite o artista"> <label>Gravadora:</label>
-						<input type="text" class="form-control" id="gravadora"
+						<input type="text" class="form-control" name="gravadora"
 							placeholder="Digite a gravadora do cd"> <label>Ano
 							Lançamento:</label> <input type="text" class="form-control"
-							id="gravadora" placeholder="Digite a gravadora do cd"> <a
+							name="dataLancamento"
+							placeholder="Digite a data de lançamento do cd"> <a
 							href=#><label data-toggle="collapse" data-target="#faixas">Faixas
 								<span class="glyphicon glyphicon-chevron-down"></span>
 						</label></a>
@@ -99,7 +99,7 @@ footer {
 							<%
 								for (int i = 0; i <= 10; i++) {
 							%>
-							<input type="text" class="form-control" id="listaFaixa"
+							<input type="text" class="form-control" id="dscFaixa" name="dscFaixa"
 								placeholder="Digite a faixa do cd">
 							<%
 								}

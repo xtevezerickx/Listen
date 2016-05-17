@@ -30,14 +30,15 @@ public class UsuarioDB extends Conexao {
 			resultSet = statement.executeQuery("SELECT * FROM Usuario");
 			while (resultSet.next()) {
 				Usuario usuario = new Usuario();
-				usuario.setCEP(resultSet.getString("cep"));
+				usuario.setNome(resultSet.getString("nome"));
+				usuario.setCep(resultSet.getString("cep"));
 				usuario.setCidade(resultSet.getString("cidade"));
-				usuario.setCPF(resultSet.getString("cpf"));
+				usuario.setCpf(resultSet.getString("cpf"));
 				usuario.setCodUsuario(resultSet.getLong("codUsuario"));
 				usuario.setDataNascimento(resultSet.getDate("dataNascimento"));
 				usuario.setEmail(resultSet.getString("email"));
 				usuario.setEstado(resultSet.getString("estado"));
-				usuario.setRG(resultSet.getString("rg"));
+				usuario.setRg(resultSet.getString("rg"));
 				usuario.setRua(resultSet.getString("rua"));
 				usuario.setTelefone(resultSet.getString("telefone"));
 				usuario.setLogin(resultSet.getString("login"));
@@ -69,14 +70,15 @@ public class UsuarioDB extends Conexao {
 			preparedStatement = con.prepareStatement("select * from Usuario where codUsuario = ? ");
 			preparedStatement.setLong(1, valorChave);
 			resultSet = preparedStatement.executeQuery();
-			usuario.setCEP(resultSet.getString("cep"));
+			usuario.setNome(resultSet.getString("nome"));
+			usuario.setCep(resultSet.getString("cep"));
 			usuario.setCidade(resultSet.getString("cidade"));
-			usuario.setCPF(resultSet.getString("cpf"));
+			usuario.setCpf(resultSet.getString("cpf"));
 			usuario.setCodUsuario(resultSet.getLong("codUsuario"));
 			usuario.setDataNascimento(resultSet.getDate("dataNascimento"));
 			usuario.setEmail(resultSet.getString("email"));
 			usuario.setEstado(resultSet.getString("estado"));
-			usuario.setRG(resultSet.getString("rg"));
+			usuario.setRg(resultSet.getString("rg"));
 			usuario.setRua(resultSet.getString("rua"));
 			usuario.setTelefone(resultSet.getString("telefone"));
 			usuario.setLogin(resultSet.getString("login"));
@@ -98,19 +100,21 @@ public class UsuarioDB extends Conexao {
 		Connection con = null;
 		try {
 			con = this.getConexao();
-			String stn = "INSERT INTO Usuario(rg,cpf,rua,cep,cidade,estado,dataNasicmento,email,telefone,login,senha) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			String stn = "INSERT INTO Usuario(nome, rg, cpf, rua, cep, cidade, estado, dataNasicmento, email, telefone, login, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			Date dataNascimento = new Date(usuario.getDataNascimento().getTime());
 			pst = con.prepareStatement(stn);
-			pst.setString(1, usuario.getRG());
-			pst.setString(2, usuario.getCPF());
-			pst.setString(3, usuario.getRua());
-			pst.setString(4, usuario.getCEP());
-			pst.setString(5, usuario.getCidade());
-			pst.setString(6, usuario.getEstado());
-			pst.setDate(7, (Date) usuario.getDataNascimento());
-			pst.setString(8, usuario.getEmail());
-			pst.setString(9, usuario.getTelefone());
-			pst.setString(10, usuario.getLogin());
-			pst.setString(11, usuario.getSenha());
+			pst.setString(1, usuario.getNome());
+			pst.setString(2, usuario.getRg());
+			pst.setString(3, usuario.getCpf());
+			pst.setString(4, usuario.getRua());
+			pst.setString(5, usuario.getCep());
+			pst.setString(6, usuario.getCidade());
+			pst.setString(7, usuario.getEstado());
+			pst.setDate(8, dataNascimento);
+			pst.setString(9, usuario.getEmail());
+			pst.setString(10, usuario.getTelefone());
+			pst.setString(11, usuario.getLogin());
+			pst.setString(12, usuario.getSenha());
 			pst.executeUpdate();
 		} catch (Exception e) {
 			throw e;
@@ -124,20 +128,21 @@ public class UsuarioDB extends Conexao {
 		Connection con = null;
 		try {
 			con = this.getConexao();
-			String stn = "UPDATE CDs SET rg=?, cpf=?, rua=?, cep=?, cidade=?,estado=?,dataNascimento=?,email=?,telefone=?,login=?,senha=? WHERE codUsuario=?";
+			String stn = "UPDATE Usuario SET nome = ?, rg = ?, cpf = ?, rua = ?, cep = ?, cidade = ?, estado = ?, dataNascimento = ?, email = ?, telefone = ?, login = ?, senha = ? WHERE codUsuario = ?";
 			pst = con.prepareStatement(stn);
-			pst.setString(1, usuario.getRG());
-			pst.setString(2, usuario.getCPF());
-			pst.setString(3, usuario.getRua());
-			pst.setString(4, usuario.getCEP());
-			pst.setString(5, usuario.getCidade());
-			pst.setString(6, usuario.getEstado());
-			pst.setDate(7, (Date) usuario.getDataNascimento());
-			pst.setString(8, usuario.getEmail());
-			pst.setString(9, usuario.getTelefone());
-			pst.setString(10, usuario.getLogin());
-			pst.setString(11, usuario.getSenha());
-			pst.setLong(12, usuario.getCodUsuario());
+			pst.setString(1, usuario.getNome());
+			pst.setString(2, usuario.getRg());
+			pst.setString(3, usuario.getCpf());
+			pst.setString(4, usuario.getRua());
+			pst.setString(5, usuario.getCep());
+			pst.setString(6, usuario.getCidade());
+			pst.setString(7, usuario.getEstado());
+			pst.setDate(8, (Date) usuario.getDataNascimento());
+			pst.setString(9, usuario.getEmail());
+			pst.setString(10, usuario.getTelefone());
+			pst.setString(11, usuario.getLogin());
+			pst.setString(12, usuario.getSenha());
+			pst.setLong(13, usuario.getCodUsuario());
 			pst.executeUpdate();
 		} catch (Exception e) {
 			throw e;
@@ -157,7 +162,7 @@ public class UsuarioDB extends Conexao {
 		}
 		ResultSet rs = null;
 		try {
-			pst = con.prepareStatement("delete from Usuario where codUsuario = ? ");
+			pst = con.prepareStatement("DELETE FROM Usuario WHERE codUsuario = ?");
 			pst.setLong(1, valorChave);
 			rs = pst.executeQuery();
 		} catch (SQLException e) {

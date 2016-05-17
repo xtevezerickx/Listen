@@ -7,10 +7,10 @@ public class Conexao {
 	public Connection dbConn;
 
 	public Connection getConexao() throws Exception {
-		String driver = "oracle.jdbc.OracleDriver";
-		String URL = "jdbc:oracle:thin:@10.51.183.39:1521:XE";
-		String login = "CCO3";
-		String senha = "CCO3";
+		String driver = "com.mysql.jdbc.Driver";
+		String URL = "jdbc:mysql://localhost/listen";
+		String login = "root";
+		String senha = "1234";
 		dbConn = null;
 		try{
 			Class.forName(driver);

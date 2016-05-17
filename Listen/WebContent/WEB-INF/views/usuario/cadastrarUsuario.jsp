@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Login</title>
+<title>Cadastro de Usuário</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -47,7 +47,6 @@ footer {
 	}
 }
 </style>
-
 </head>
 <body>
 
@@ -63,11 +62,11 @@ footer {
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li><a href="cadastrarCD">Cadastrar</a></li>
-					<li><a href="alterarCD">Alterar</a></li>
+					<li class="active"><a href="#">Cadastrar</a></li>
+					<li><a href="listarCD">Alterar</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-				<li><a href="cadastrarUsuario"><span class="glyphicon glyphicon-user"></span> Cadastre-se</a></li>
+				<li><a href="novoUsuario"><span class="glyphicon glyphicon-user"></span> Cadastre-se</a></li>
 					<li><a href="login"><span class="glyphicon glyphicon-log-in"></span>
 							Login</a></li>
 				</ul>
@@ -78,18 +77,24 @@ footer {
 	<div class="container-fluid text-center">
 		<div class="row content">
 			<div class="col-sm-12 text-left">
-				<h1>Login</h1>
-				<form class="form" method="post" action="efetuarLogin">
-					<div class="form-group" style="width: 500px">
-						<label>Usuario:</label> <input type="text" class="form-control"
-							id="usuario" placeholder="Digite seu usuário" required> 
-						<label>Senha:</label>
-						<input type="password" class="form-control" id="senha" placeholder="Digite sua senha" required>
-						<a href=novoUsuario>Não tem cadastro ? Click aqui</a>
-						<br>
+				<h1>Cadastro de Usuário</h1>
+				<form class="form" method="post" action="adicionarUsuario">
+					<div class="form-group" style="width: 400px">
+						<label>Nome:</label> <input type="text" class="form-control" name="nome">
+						<label>RG:</label> <input type="text" class="form-control" name="rg">
+						<label>CPF:</label> <input type="text" class="form-control" name="cpf">
+						<label>Rua:</label> <input type="text" class="form-control" name="rua">
+						<label>CEP:</label> <input type="text" class="form-control" name="cep">
+						<label>Cidade:</label> <input type="text" class="form-control" name="cidade">
+						<label>Estado:</label> <input type="text" class="form-control" name="estado">
+						<label>Data de Nascimento:</label> <input type="text" class="form-control" name="dataNascimento">
+						<label>Email:</label> <input type="text" class="form-control" name="email">
+						<label>Telefone:</label> <input type="text" class="form-control" name="telefone">
+						<label>Login:</label> <input type="text" class="form-control" name="login">
+						<label>Senha:</label> <input type="text" class="form-control" name="senha">
 						<div class="form-group container">
-							<a href=index><button type="reset" class="btn btn-danger">Cancelar</button></a>
-							<button type="submit" class="btn btn-primary">Login</button>
+							<button type="reset" class="btn btn-danger">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Cadastrar</button>
 						</div>
 					</div>
 				</form>
