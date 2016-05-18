@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.springframework.jdbc.support.xml.SqlXmlFeatureNotImplementedException;
+
 import br.com.listen.model.CDs;
 
 public class TabelaCDDB extends Conexao {
@@ -47,6 +49,30 @@ public class TabelaCDDB extends Conexao {
 			this.close();
 		}
 		return lista;
+	}
+	
+	public int descobreId() throws SQLException,Exception{
+		Connection con= null;
+		try{
+			con=this.getConexao();
+		}catch(Exception e){
+			throw e;
+		}
+		ResultSet rs = null;
+		Statement stm=null;
+		try{
+			stm=con.createStatement();
+			rs=stm.executeQuery("SELECT MAX(idCd)FROM cd");
+			if(rs.next()){
+				return rs.getInt(1);
+			}else{
+				return 0;
+			}
+		}catch(Exception e){
+			throw e;
+		}
+		
+
 	}
 
 	public CDs findByPrimaryKey(int valorChave) throws Exception {
@@ -88,7 +114,7 @@ public class TabelaCDDB extends Conexao {
 			java.sql.Date d2 = new java.sql.Date(d1.getTime());
 			String stn = "INSERT INTO cd(nomeCd,preco,gravadora,dataLancamento,dataCadastro,idArtista) VALUES (?, ?, ?, ?, ?,?)";
 			pst = con.prepareStatement(stn);
-			pst.setString(1, cd.getTituloCD());
+			pst.setString(1, cd.getNomeCD());
 			pst.setDouble(2, cd.getPreco());
 			pst.setString(3, cd.getGravadora());
 			pst.setInt(4, cd.getDataLancamento());

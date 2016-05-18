@@ -5,7 +5,7 @@ import java.sql.Date;
 public class CDs {
 
 	private int idCD;
-	private String tituloCD;
+	private String nomeCD;
 	private double preco;
 	private int dataLancamento;
 	private Date dataCriacao;
@@ -44,24 +44,24 @@ public class CDs {
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-	public String getTituloCD() {
-		return tituloCD;
-	}
-	public void setTituloCD(String tituloCD) {
-		this.tituloCD = tituloCD;
-	}
 	public int getDataLancamento() {
 		return dataLancamento;
 	}
 	public void setDataLancamento(int dataLancamento) {
 		this.dataLancamento = dataLancamento;
 	}
+	public String getNomeCD() {
+		return nomeCD;
+	}
+	public void setNomeCD(String nomeCD) {
+		this.nomeCD = nomeCD;
+	}
 	@Override
 	public String toString() {
-		return "CDs [idCD=" + idCD + ", tituloCD=" + tituloCD + ", preco=" + preco + ", dataLancamento="
-				+ dataLancamento + ", dataCriacao=" + dataCriacao + ", gravadora=" + gravadora + ", idArtista="
-				+ idArtista + "]";
+		return "CDs [idCD=" + idCD + ", nomeCD=" + nomeCD + ", preco=" + preco + ", dataLancamento=" + dataLancamento
+				+ ", dataCriacao=" + dataCriacao + ", gravadora=" + gravadora + ", idArtista=" + idArtista + "]";
 	}
+
 	
 	
 	

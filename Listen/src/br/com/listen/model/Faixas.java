@@ -1,17 +1,10 @@
 package br.com.listen.model;
 
 public class Faixas {
-	int numFaixa;
 	String dscFaixa;
 	int idCd;
 
-	public int getNumFaixa() {
-		return numFaixa;
-	}
-
-	public void setNumFaixa(int numFaixa) {
-		this.numFaixa = numFaixa;
-	}
+	
 
 	public String getDscFaixa() {
 		return dscFaixa;
@@ -23,7 +16,7 @@ public class Faixas {
 
 	@Override
 	public String toString() {
-		return "Faixas [numFaixa=" + numFaixa + ", dscFaixa=" + dscFaixa + ", idCd=" + idCd + "]";
+		return "Faixas [ dscFaixa=" + dscFaixa + ", idCd=" + idCd + "]";
 	}
 
 	public int getIdCd() {

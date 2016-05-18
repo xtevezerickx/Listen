@@ -11,16 +11,17 @@ public class FaixasDB extends Conexao {
 		Connection con = null;
 		try {
 			con = this.getConexao();
-			String stn = "INSERT INTO faixa(numFaixa,dscFaixa,idCd) VALUES (?, ?, ?)";
+			String stn = "INSERT INTO faixa(dscFaixa,idCd) VALUES ( ?, ?)";
 			pst = con.prepareStatement(stn);
-			pst.setInt(1, faixa.getNumFaixa());
-			pst.setString(2, faixa.getDscFaixa());
-			pst.setInt(3, faixa.getIdCd());
-			
+			pst.setString(1, faixa.getDscFaixa());
+			pst.setInt(2, new TabelaCDDB().descobreId());
+			pst.executeUpdate();
 		} catch (Exception e) {
 			throw e;
 		} finally {
 			this.close();
 		}
 	}
+	
+
 }

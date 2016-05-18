@@ -1,5 +1,5 @@
 <%@include file="/header.jspf" %>
-
+<body>
 	<div class="container-fluid text-center">
 		<div class="row content">
 			<div class="col-sm-12 text-center">
@@ -15,5 +15,6 @@
 			</div>
 		</div>
 	</div>
+</body>
 
 <%@include file="/footer.jspf"%>
