@@ -20,6 +20,7 @@ public class TabelaCDDB extends Conexao {
 	}
 
 	public ArrayList<CDs> findAll() throws SQLException, Exception {
+		//TODO fazer essa logica fncionar huehue
 		ArrayList<CDs> lista = new ArrayList<CDs>();
 		Connection con = null;
 		try {
@@ -31,12 +32,11 @@ public class TabelaCDDB extends Conexao {
 		Statement stm = null;
 		try {
 			stm = con.createStatement();
-			rs = stm.executeQuery("SELECT * FROM CDs");
+			rs = stm.executeQuery("SELECT * FROM CD");
 			while (rs.next()) {
-				CDs cdBean = new CDs();
-				
-				cdBean.setPreco(rs.getDouble("preco"));
-				lista.add(cdBean);
+				CDs cd = new CDs();
+				cd.setPreco(rs.getDouble("preco"));
+				lista.add(cd);
 			}
 		} catch (SQLException e) {
 			throw e;

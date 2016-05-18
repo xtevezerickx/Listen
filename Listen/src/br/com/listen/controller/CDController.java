@@ -1,21 +1,12 @@
 package br.com.listen.controller;
 
-import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.View;
-
-import com.google.gson.Gson;
 
 import br.com.listen.jdbc.FaixasDB;
 import br.com.listen.jdbc.TabelaCDDB;
@@ -29,10 +20,10 @@ public class CDController {
 		return "cd/cadastrarCD";
 	}
 
-	@RequestMapping("listarCD")
-	public String formAlterarCD() {
-		return "cd/listarCD";
-	}
+//	@RequestMapping("alterarCD")
+//	public String formAlterarCD() {
+//		return "cd/alterarCD";
+//	}
 
 	@RequestMapping("adicionarCD")
 	public String AdicionarCD(CDs cd) {
@@ -67,7 +58,20 @@ public class CDController {
 				}
 			}
 		}
-		return "redirect:listarCD";
+		return "redirect:listarCd";
 	}
 
+	@RequestMapping("listarCd")
+	public String lista(Model model){
+		TabelaCDDB bd = new TabelaCDDB();
+		try {
+			model.addAttribute("cd",bd.findAll());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "cd/listarCD";
+	}
+	
 }
