@@ -25,29 +25,21 @@ public class CDController {
 		return "cd/cadastrarCD";
 	}
 
+	@RequestMapping("removerCD")
+	public String removerCD(int cdId) throws Exception{
+		new TabelaCDDB().delete(cdId);
+		return "redirect:listarCD";
+	}
 	@RequestMapping("adicionarCD")
 	public String AdicionarCD(CDs cd,@RequestParam("faixa") ArrayList<String> faixa,Genero genero,Artista artista) throws SQLException, Exception {
-
-		
-		if(new GeneroDB().descobreId(genero)==0){
-			new GeneroDB().insert(genero);
-			genero.setIdGenero(new GeneroDB().descobreUltimoId());
-		}else{
-			genero.setIdGenero(new GeneroDB().descobreId(genero));
-		}
-		
-		artista.setIdGenero(genero.getIdGenero());
-	
-		if(new ArtistaDB().descobreId(artista)==0){
-			new ArtistaDB().insert(artista);
-			artista.setIdArtista(new ArtistaDB().descobreUltimoId());
-		}else{
-			artista.setIdArtista(new ArtistaDB().descobreId(artista));
-		}
-		
-		cd.setIdArtista(artista.getIdArtista());
+		cadastrarGenero(genero, artista);
+		cadastrarArtista(cd, artista);
 		new TabelaCDDB().insert(cd);
-		
+		cadastrarFaixa(faixa);
+		return "redirect:listarCd";
+	}
+
+	private void cadastrarFaixa(ArrayList<String> faixa) throws SQLException, Exception {
 		FaixasDB bd = new FaixasDB();
 		Faixas f = new Faixas();
 		for (int i = 0; i < faixa.size(); i++) {
@@ -63,9 +55,28 @@ public class CDController {
 				}
 			}
 		}
-	
+	}
 
-		return "redirect:listarCd";
+	private void cadastrarArtista(CDs cd, Artista artista) throws SQLException, Exception {
+		if(new ArtistaDB().descobreId(artista)==0){
+			new ArtistaDB().insert(artista);
+			artista.setIdArtista(new ArtistaDB().descobreUltimoId());
+		}else{
+			artista.setIdArtista(new ArtistaDB().descobreId(artista));
+		}
+		
+		cd.setIdArtista(artista.getIdArtista());
+	}
+
+	private void cadastrarGenero(Genero genero, Artista artista) throws SQLException, Exception {
+		if(new GeneroDB().descobreId(genero)==0){
+			new GeneroDB().insert(genero);
+			genero.setIdGenero(new GeneroDB().descobreUltimoId());
+		}else{
+			genero.setIdGenero(new GeneroDB().descobreId(genero));
+		}
+		
+		artista.setIdGenero(genero.getIdGenero());
 	}
 
 	@RequestMapping("cadastrarFaixa")
@@ -75,21 +86,7 @@ public class CDController {
 
 	@RequestMapping("adicionarFaixa")
 	public String adicionarFaixa(@RequestParam("faixa") ArrayList<String> faixa) throws SQLException, Exception {
-		FaixasDB bd = new FaixasDB();
-		Faixas f = new Faixas();
-		for (int i = 0; i < faixa.size(); i++) {
-			if (!(faixa.get(i) == null)) {
-				f.setDscFaixa(faixa.get(i));
-				f.setIdCd(new TabelaCDDB().descobreUltimoId());
-				if (!(f.getDscFaixa() == "")) {
-					try {
-						bd.insert(f);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
+		cadastrarFaixa(faixa);
 		return "redirect:listarCd";
 	}
 
@@ -99,6 +96,11 @@ public class CDController {
 		List<CDs> listacd=bd.findAll();
 		model.addAttribute("cds",listacd);
 		return "cd/listarCD";
+	}
+	@RequestMapping("index")
+	public String index(Model model) throws SQLException, Exception{
+		model.addAttribute("cds",new TabelaCDDB().findAll());
+		return "index";
 	}
 	
 }

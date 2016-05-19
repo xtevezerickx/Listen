@@ -15,11 +15,12 @@
 						<label>Ano	Lançamento:</label> <input value="1994" type="text" class="form-control"name="dataLancamento" placeholder="Digite a data de lançamento do cd"> 
 						<a href=#><label data-toggle="collapse" data-target="#faixas">Faixas</label></a>
 						<div id="faixas" class="collapse">
-						<%for (int i = 0; i <= 10; i++) {%>
+						<c:forEach begin="1" end="10">
 						<input type="text" class="form-control" id="faixa"
 							name="faixa" placeholder="Digite a faixa do cd" style="width: 400px">
 						<br>
-						<%}%>
+						</c:forEach>
+
 						</div>
 						<div class="form-group container">
 							<button type="reset" class="btn btn-danger">Cancelar</button>

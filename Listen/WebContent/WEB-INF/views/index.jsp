@@ -7,11 +7,10 @@
 
 				<hr>
 				<h3>Test</h3>
+				<c:forEach begin="1" end="10">
 				<p>Lorem ipsum...</p>
-				<p>Lorem ipsum...</p>
-				<p>Lorem ipsum...</p>
-				<p>Lorem ipsum...</p>
-				<p>Lorem ipsum...</p>
+				</c:forEach>
+
 			</div>
 		</div>
 	</div>

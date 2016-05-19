@@ -29,8 +29,5 @@ public class LoginController {
 	  return "redirect:loginForm";
 	}
 		
-	@RequestMapping("index")
-	public String index(){
-		return "index";
-	}
+	
 }

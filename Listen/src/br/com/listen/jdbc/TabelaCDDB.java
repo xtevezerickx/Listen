@@ -156,21 +156,17 @@ public class TabelaCDDB extends Conexao {
 		} catch (Exception e) {
 			throw e;
 		}
-		ResultSet rs = null;
 		try {
-			pst = con.prepareStatement("delete from CDs where codigoCD = ? ");
+			pst = con.prepareStatement("DELETE FROM cd WHERE idCD = ? ");
 			pst.setInt(1, valorChave);
-			rs = pst.executeQuery();
+			pst.execute();
 		} catch (SQLException e) {
 			throw e;
 		} catch (Exception e) {
 			System.out.println("Erro Desconhecido" + e.getMessage());
 			throw e;
-		} finally {
-			if (rs != null)
-				rs.close();
-			this.close();
-		}
+		} 
+		con.close();
 	}
 
 }
