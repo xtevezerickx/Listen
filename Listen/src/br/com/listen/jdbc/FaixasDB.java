@@ -14,7 +14,7 @@ public class FaixasDB extends Conexao {
 			String stn = "INSERT INTO faixa(dscFaixa,idCd) VALUES ( ?, ?)";
 			pst = con.prepareStatement(stn);
 			pst.setString(1, faixa.getDscFaixa());
-			pst.setInt(2, new TabelaCDDB().descobreId());
+			pst.setInt(2, faixa.getIdCd());
 			pst.executeUpdate();
 		} catch (Exception e) {
 			throw e;

@@ -13,17 +13,20 @@
 							<th>Nome</th>
 							<th>idArtista</th>
 							<th>Gravadora</th>
+							<th>Data Criacao</th>
 							<th>Ano Lançamento</th>
 							<th colspan="2">Opções</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${cd}" var="cd">
+						<c:forEach items="${cds}" var="cd">
 							<tr>
-								<th>${cd.nome}</th>
-								<th>${cd.idArtista}</th>
-								<th>${cd.gravadora}</th>
-								<th>${cd.anoLancamento}</th>
+								<td>${cd.nomeCD}</td>
+								<td>${cd.idArtista}</td>
+								<td>${cd.gravadora}</td>
+								<td>${cd.dataCriacao}</td>
+								<td>${cd.dataLancamento}</td>
+							<th></th>
 								<th><a href="#" class="btn btn-primary btn-sm"> <span
 										class="glyphicon glyphicon-search"></span> Alterar
 								</a></th>
@@ -33,40 +36,6 @@
 							</tr>
 						</c:forEach>
 					</tbody>
-					<tr>
-						<th>1</th>
-						<th>blabla</th>
-						<th>sim</th>
-						<th>10/08/2154</th>
-
-
-					</tr>
-					<tr>
-						<th>2</th>
-						<th>oioiiu</th>
-						<th>nao</th>
-						<th>8/8/8888</th>
-
-						<th><a href="#" class="btn btn-primary btn-sm"> <span
-								class="glyphicon glyphicon-search"></span> Alterar
-						</a></th>
-						<th><a href="#" class="btn btn-danger btn-sm"> <span
-								class="glyphicon glyphicon-trash"></span> Remover
-						</a></th>
-					</tr>
-					<tr>
-						<th>3</th>
-						<th>oioiiu</th>
-						<th>nao</th>
-						<th>8/8/8888</th>
-
-						<th><a href="#" class="btn btn-primary btn-sm"> <span
-								class="glyphicon glyphicon-search"></span> Alterar
-						</a></th>
-						<th><a href="#" class="btn btn-danger btn-sm"> <span
-								class="glyphicon glyphicon-trash"></span> Remover
-						</a></th>
-					</tr>
 				</table>
 			</div>
 		</div>

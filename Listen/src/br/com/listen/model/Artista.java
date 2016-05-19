@@ -2,28 +2,31 @@ package br.com.listen.model;
 
 public class Artista {
 
-	private int codigoArtista;
+	private int idArtista;
 	private String nomeArtista;
-
-	public Artista() {
-		super();
-
+	private int idGenero;
+	public int getIdArtista() {
+		return idArtista;
 	}
-
-	public int getCodigoArtista() {
-		return codigoArtista;
+	public void setIdArtista(int idArtista) {
+		this.idArtista = idArtista;
 	}
-
-	public void setCodigoArtista(int codigoArtista) {
-		this.codigoArtista = codigoArtista;
-	}
-
 	public String getNomeArtista() {
 		return nomeArtista;
 	}
-
 	public void setNomeArtista(String nomeArtista) {
 		this.nomeArtista = nomeArtista;
 	}
+	public int getIdGenero() {
+		return idGenero;
+	}
+	public void setIdGenero(int idGenero) {
+		this.idGenero = idGenero;
+	}
+	@Override
+	public String toString() {
+		return "Artista [idArtista=" + idArtista + ", nomeArtista=" + nomeArtista + ", idGenero=" + idGenero + "]";
+	}
 
+	
 }

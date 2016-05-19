@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.springframework.jdbc.support.xml.SqlXmlFeatureNotImplementedException;
-
 import br.com.listen.model.CDs;
 
 public class TabelaCDDB extends Conexao {
@@ -35,7 +33,13 @@ public class TabelaCDDB extends Conexao {
 			rs = stm.executeQuery("SELECT * FROM CD");
 			while (rs.next()) {
 				CDs cd = new CDs();
+				cd.setIdCD(rs.getInt("idCd"));
+				cd.setNomeCD(rs.getString("nomeCd"));
 				cd.setPreco(rs.getDouble("preco"));
+				cd.setGravadora(rs.getString("gravadora"));
+				cd.setDataLancamento(rs.getInt("dataLancamento"));
+				cd.setDataCriacao(rs.getDate("dataCadastro"));
+				cd.setIdArtista(rs.getInt("idArtista"));
 				lista.add(cd);
 			}
 		} catch (SQLException e) {
@@ -51,7 +55,7 @@ public class TabelaCDDB extends Conexao {
 		return lista;
 	}
 	
-	public int descobreId() throws SQLException,Exception{
+	public int descobreUltimoId() throws SQLException,Exception{
 		Connection con= null;
 		try{
 			con=this.getConexao();
