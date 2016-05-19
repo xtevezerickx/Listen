@@ -3,6 +3,7 @@ package br.com.listen.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,12 +27,14 @@ public class CDController {
 	}
 
 	@RequestMapping("removerCD")
-	public String removerCD(int cdId) throws Exception{
+	public String removerCD(int cdId) throws Exception {
 		new TabelaCDDB().delete(cdId);
 		return "redirect:listarCD";
 	}
+
 	@RequestMapping("adicionarCD")
-	public String AdicionarCD(CDs cd,@RequestParam("faixa") ArrayList<String> faixa,Genero genero,Artista artista) throws SQLException, Exception {
+	public String AdicionarCD(CDs cd, @RequestParam("faixa") ArrayList<String> faixa, Genero genero, Artista artista)
+			throws SQLException, Exception {
 		cadastrarGenero(genero, artista);
 		cadastrarArtista(cd, artista);
 		new TabelaCDDB().insert(cd);
@@ -58,24 +61,24 @@ public class CDController {
 	}
 
 	private void cadastrarArtista(CDs cd, Artista artista) throws SQLException, Exception {
-		if(new ArtistaDB().descobreId(artista)==0){
+		if (new ArtistaDB().descobreId(artista) == 0) {
 			new ArtistaDB().insert(artista);
 			artista.setIdArtista(new ArtistaDB().descobreUltimoId());
-		}else{
+		} else {
 			artista.setIdArtista(new ArtistaDB().descobreId(artista));
 		}
-		
+
 		cd.setIdArtista(artista.getIdArtista());
 	}
 
 	private void cadastrarGenero(Genero genero, Artista artista) throws SQLException, Exception {
-		if(new GeneroDB().descobreId(genero)==0){
+		if (new GeneroDB().descobreId(genero) == 0) {
 			new GeneroDB().insert(genero);
 			genero.setIdGenero(new GeneroDB().descobreUltimoId());
-		}else{
+		} else {
 			genero.setIdGenero(new GeneroDB().descobreId(genero));
 		}
-		
+
 		artista.setIdGenero(genero.getIdGenero());
 	}
 
@@ -91,16 +94,23 @@ public class CDController {
 	}
 
 	@RequestMapping("listarCd")
-	public String lista(Model model) throws SQLException, Exception{
+	public String lista(Model model) throws SQLException, Exception {
 		TabelaCDDB bd = new TabelaCDDB();
-		List<CDs> listacd=bd.findAll();
-		model.addAttribute("cds",listacd);
+		List<CDs> listacd = bd.findAll();
+		model.addAttribute("cds", listacd);
 		return "cd/listarCD";
 	}
+
 	@RequestMapping("index")
-	public String index(Model model) throws SQLException, Exception{
-		model.addAttribute("cds",new TabelaCDDB().findAll());
-		return "index";
+	public void index(Model model) throws SQLException, Exception {
+		model.addAttribute("cds", new TabelaCDDB().findAll());
+
+		for (CDs cd : new TabelaCDDB().findAll()) {
+			System.out.println("o valor do cdid"+cd.getIdCD());
+			model.addAttribute("listaDeFaixas", new FaixasDB().buscaPorIdCd(cd.getIdCD()));
+			System.out.println("valor da busca"+new FaixasDB().buscaPorIdCd(cd.getIdCD()));
+		}
+		// return "index";
 	}
-	
+
 }
