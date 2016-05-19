@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.listen.model.CDs;
 import br.com.listen.model.Faixas;
 
 public class FaixasDB extends Conexao {
@@ -56,6 +55,38 @@ public class FaixasDB extends Conexao {
 		} 
 		return listaDeFaixas;
 		
+	}
+	
+	public ArrayList<Faixas> listarTodasFaixas() throws SQLException, Exception {
+		ArrayList<Faixas> lista = new ArrayList<Faixas>();
+		Connection con = null;
+		try {
+			con = this.getConexao();
+		} catch (Exception e) {
+			throw e;
+		}
+		ResultSet rs = null;
+		Statement stm = null;
+		try {
+			stm = con.createStatement();
+			rs = stm.executeQuery("SELECT * FROM faixa");
+			while (rs.next()) {
+				Faixas faixa = new Faixas();
+				faixa.setDscFaixa(rs.getString("dscFaixa"));
+				faixa.setIdCd(rs.getInt("idCd"));
+				lista.add(faixa);
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			System.out.println("Erro Desconhecido" + e.getMessage());
+			throw e;
+		} finally {
+			if (rs != null)
+				rs.close();
+			this.close();
+		}
+		return lista;
 	}
 	
 

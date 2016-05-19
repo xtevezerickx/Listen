@@ -18,7 +18,6 @@ public class TabelaCDDB extends Conexao {
 	}
 
 	public ArrayList<CDs> findAll() throws SQLException, Exception {
-		//TODO fazer essa logica fncionar huehue
 		ArrayList<CDs> lista = new ArrayList<CDs>();
 		Connection con = null;
 		try {

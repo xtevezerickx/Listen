@@ -24,24 +24,34 @@ $(document).ready(function(){
 										<h5>${cd.nomeCD}</h5>
 										<b class="finalprice">Pre&ccedilo do cd:${cd.preco}</b>
 										<p>
-										<c:forEach items="${listaDeFaixas}" var="faixa">
 										
-											<a href="#" title="Dismissible popover" 
-											 data-toggle="popover" 
-											 data-trigger="focus"
-											  data-content="${faixa.dscFaixa} ">
-											  Click me</a>
-											
-										
-										</c:forEach>
 											
 											<button type="button"class="btn btn-primary btn-md btn-block">
 											<span class="glyphicon glyphicon-plus-sign"></span>
 											Adicionar ao Carrinho
 											</button>
+											
+											
+											
+											<a href="#" title="Faixas do CD" 
+											 data-toggle="popover" 
+											 data-trigger="focus"
+											  data-content="
+											  <c:forEach items="${listaDeFaixas}" var="faixa">
+												<c:if test="${cd.idCD eq faixa.idCd }">
+												
+												${faixa.dscFaixa} 
+												</c:if>									
+												</c:forEach>
+													">
+											   <button type="button"
+												class="btn btn-info btn-md btn-block">
+												Mais Informa&ccedil&otildees...</button>
+											  
+											  </a>
+										
 											 
-											 <button type="button"
-												class="btn btn-info btn-md btn-block">Mais Informa&ccedil&otildees...</button></a> 
+											
 										</p>
 										
 									</div>

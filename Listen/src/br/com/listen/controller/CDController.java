@@ -3,7 +3,6 @@ package br.com.listen.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -107,7 +106,7 @@ public class CDController {
 
 		for (CDs cd : new TabelaCDDB().findAll()) {
 			System.out.println("o valor do cdid"+cd.getIdCD());
-			model.addAttribute("listaDeFaixas", new FaixasDB().buscaPorIdCd(cd.getIdCD()));
+			model.addAttribute("listaDeFaixas", new FaixasDB().listarTodasFaixas());
 			System.out.println("valor da busca"+new FaixasDB().buscaPorIdCd(cd.getIdCD()));
 		}
 		// return "index";
