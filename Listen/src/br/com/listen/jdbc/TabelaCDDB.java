@@ -78,7 +78,7 @@ public class TabelaCDDB extends Conexao {
 
 	}
 
-	public CDs findByPrimaryKey(int valorChave) throws Exception {
+	public CDs buscaPeloId(int idCd) throws Exception {
 		CDs cd = new CDs();
 		PreparedStatement pst = null;
 		Connection con = null;
@@ -89,13 +89,18 @@ public class TabelaCDDB extends Conexao {
 		}
 		ResultSet rs = null;
 		try {
-			pst = con.prepareStatement("select * from CDs where codigoCD = ? ");
-			// substituir a 1� �?� pelo conte�do do valorChave,
-			// isto �, procura na tabela o codigoCd=valorChave
-			pst.setInt(1, valorChave);
+			pst = con.prepareStatement("select * from cd where idCd = ? ");
+			pst.setInt(1, idCd);
 			rs = pst.executeQuery();
-			
+			if(rs.next()){
+			cd.setIdCD(rs.getInt("idCd"));
+			cd.setNomeCD(rs.getString("nomeCd"));
 			cd.setPreco(rs.getDouble("preco"));
+			cd.setGravadora(rs.getString("gravadora"));
+			cd.setDataLancamento(rs.getInt("dataLancamento"));
+			cd.setDataCriacao(rs.getDate("dataCadastro"));
+			cd.setIdArtista(rs.getInt("idArtista"));
+			}
 			return cd;
 		} catch (SQLException e) {
 			throw e;
@@ -147,7 +152,7 @@ public class TabelaCDDB extends Conexao {
 		}
 	}
 
-	public void delete(int valorChave) throws Exception {
+	public void delete(int idCD) throws Exception {
 		PreparedStatement pst = null;
 		Connection con = null;
 		try {
@@ -156,8 +161,12 @@ public class TabelaCDDB extends Conexao {
 			throw e;
 		}
 		try {
+			pst = con.prepareStatement("DELETE FROM faixa WHERE idCD = ?");
+			pst.setInt(1, idCD);
+			pst.execute();
+			pst=null;
 			pst = con.prepareStatement("DELETE FROM cd WHERE idCD = ? ");
-			pst.setInt(1, valorChave);
+			pst.setInt(1, idCD);
 			pst.execute();
 		} catch (SQLException e) {
 			throw e;

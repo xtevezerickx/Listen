@@ -16,10 +16,11 @@ public class FaixasDB extends Conexao {
 		Connection con = null;
 		try {
 			con = this.getConexao();
-			String stn = "INSERT INTO faixa(dscFaixa,idCd) VALUES ( ?, ?)";
+			String stn = "INSERT INTO faixa(numFaixa,dscFaixa,idCd) VALUES ( ?,?, ?)";
 			pst = con.prepareStatement(stn);
-			pst.setString(1, faixa.getDscFaixa());
-			pst.setInt(2, faixa.getIdCd());
+			pst.setInt(1, faixa.getNumFaixa());
+			pst.setString(2, faixa.getDscFaixa());
+			pst.setInt(3, faixa.getIdCd());
 			pst.executeUpdate();
 		} catch (Exception e) {
 			throw e;
@@ -72,6 +73,7 @@ public class FaixasDB extends Conexao {
 			rs = stm.executeQuery("SELECT * FROM faixa");
 			while (rs.next()) {
 				Faixas faixa = new Faixas();
+				faixa.setNumFaixa(rs.getInt("numFaixa"));
 				faixa.setDscFaixa(rs.getString("dscFaixa"));
 				faixa.setIdCd(rs.getInt("idCd"));
 				lista.add(faixa);

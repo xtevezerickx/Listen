@@ -28,9 +28,19 @@ public class CDController {
 	@RequestMapping("removerCD")
 	public String removerCD(int cdId) throws Exception {
 		new TabelaCDDB().delete(cdId);
-		return "redirect:listarCD";
+		return "redirect:listarCd";
 	}
 
+	@RequestMapping("mostrarCD")
+	public String alterarCD(int cdId,Model model) throws Exception{
+		System.out.println(cdId);
+		TabelaCDDB bd = new TabelaCDDB();
+		CDs cd = bd.buscaPeloId(cdId);
+		System.out.println(cd);
+		model.addAttribute("cd",cd);
+		return "cd/mostrarCD";
+	}
+	
 	@RequestMapping("adicionarCD")
 	public String AdicionarCD(CDs cd, @RequestParam("faixa") ArrayList<String> faixa, Genero genero, Artista artista)
 			throws SQLException, Exception {
@@ -46,6 +56,7 @@ public class CDController {
 		Faixas f = new Faixas();
 		for (int i = 0; i < faixa.size(); i++) {
 			if (!(faixa.get(i) == null)) {
+				f.setNumFaixa(i+1);
 				f.setDscFaixa(faixa.get(i));
 				f.setIdCd(new TabelaCDDB().descobreUltimoId());
 				if (!(f.getDscFaixa() == "")) {
@@ -96,18 +107,26 @@ public class CDController {
 	public String lista(Model model) throws SQLException, Exception {
 		TabelaCDDB bd = new TabelaCDDB();
 		List<CDs> listacd = bd.findAll();
+		ArtistaDB bdArtista = new ArtistaDB();
+		List<Artista> listaArtista = bdArtista.listaTodosArtistas();
+		GeneroDB bdGenero = new GeneroDB();
+		List<Genero> listaGenero = bdGenero.listaTodosGeneros();
 		model.addAttribute("cds", listacd);
+		model.addAttribute("listaArtista",listaArtista);
+		model.addAttribute("listaGenero",listaGenero);
+		System.out.println(listacd);
+		System.out.println(listaArtista);
+		System.out.println(listaGenero);
+		
 		return "cd/listarCD";
 	}
 
 	@RequestMapping("index")
 	public void index(Model model) throws SQLException, Exception {
 		model.addAttribute("cds", new TabelaCDDB().findAll());
-
+		model.addAttribute("listaGenero",new GeneroDB().listaTodosGeneros());
 		for (CDs cd : new TabelaCDDB().findAll()) {
-			System.out.println("o valor do cdid"+cd.getIdCD());
 			model.addAttribute("listaDeFaixas", new FaixasDB().listarTodasFaixas());
-			System.out.println("valor da busca"+new FaixasDB().buscaPorIdCd(cd.getIdCD()));
 		}
 		// return "index";
 	}

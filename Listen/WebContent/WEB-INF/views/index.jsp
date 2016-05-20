@@ -1,28 +1,44 @@
 <%@include file="/header.jspf"%>
+
 <meta charset="utf-8">
 <script>
 $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
+    $('[data-toggle="popover"]').popover({
+    	html:true,
+    	container:'body'
+    });   
 });
 </script>
-<body>
-	<div class="container">
+<style>
+.popover{
+	
+	width: auto;
+}
+.content{
+	max-width: 100%;
+	max-height: 100%;
+}
+</style>
+
+<body style="background-color:white;" >
+	<div  style="background-color:white;"class="container-fluid">
 		<div class="row content">
-			<div class="col-sm-12 text-center">
+		<%@include file="/menuleft.jspf" %>
+			<div style="background-color:white;"class="col-sm-10 text-center">
 				<h1>Listen</h1>
 				<hr>
 				<div class="container">
 					<div class="row">
 						<c:forEach items="${cds}" var="cd">
-							<div class="col-xs-18 col-sm-4 col-md-3">
+							<div class="col-sm-4 col-md-3">
 								<div class="productbox">
 									<div class="imgthumb img-responsive">
 										<img src=<c:url value="/imagens/CD.png" /> width="50%" alt="imagem">
 									</div>
 									<div class="caption">
 										
-										<h5>${cd.nomeCD}</h5>
-										<b class="finalprice">Pre&ccedilo do cd:${cd.preco}</b>
+										<h5><strong>${cd.nomeCD}</strong></h5>
+										<b class="finalprice">Pre&ccedilo R$ ${cd.preco}</b>
 										<p>
 										
 											
@@ -33,16 +49,23 @@ $(document).ready(function(){
 											
 											
 											
-											<a href="#" title="Faixas do CD" 
+											<a style="text-decoration:none;" title="Faixas do CD" 
 											 data-toggle="popover" 
 											 data-trigger="focus"
+											 data-placement="auto bottom"
 											  data-content="
 											  <c:forEach items="${listaDeFaixas}" var="faixa">
 												<c:if test="${cd.idCD eq faixa.idCd }">
+												Faixa ${faixa.numFaixa } - ${faixa.dscFaixa}
+												<br />
 												
-												${faixa.dscFaixa} 
-												</c:if>									
+												
+												</c:if>	
+																				
 												</c:forEach>
+												Gravadora: ${cd.gravadora}	<br>
+												Lan&ccedilamento: ${cd.dataLancamento }
+													
 													">
 											   <button type="button"
 												class="btn btn-info btn-md btn-block">

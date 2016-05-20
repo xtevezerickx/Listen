@@ -7,11 +7,12 @@
 		<div class="row content">
 			<div class="col-sm-12 text-center">
 				<h1>Alteração de CDs</h1>
-				<table class="table table-hover table-striped">
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>Nome</th>
-							<th>idArtista</th>
+							<th>Artista</th>
+							<th>Genero</th>
 							<th>Gravadora</th>
 							<th>Data Criacao</th>
 							<th>Ano Lançamento</th>
@@ -22,12 +23,25 @@
 						<c:forEach items="${cds}" var="cd">
 							<tr>
 								<td>${cd.nomeCD}</td>
-								<td>${cd.idArtista}</td>
+								
+								<td>
+								<c:forEach items="${listaArtista}" var="artista">
+									<c:if test="${artista.idArtista eq cd.idArtista }">
+										${artista.nomeArtista}
+									</c:if>
+								</c:forEach>
+								</td>
+						<td>
+
+						nada
+						
+						</td>
+																
 								<td>${cd.gravadora}</td>
 								<td>${cd.dataCriacao}</td>
 								<td>${cd.dataLancamento}</td>
 							<th></th>
-								<th><a href="#" class="btn btn-primary btn-sm"> <span
+								<th><a href="mostrarCD?cdId=${cd.idCD}" class="btn btn-primary btn-sm"> <span
 										class="glyphicon glyphicon-search"></span> Alterar
 								</a></th>
 								<th><a href="removerCD?cdId=${cd.idCD}" class="btn btn-danger btn-sm">
