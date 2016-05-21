@@ -41,6 +41,8 @@ public class CDController {
 		TabelaCDDB bd = new TabelaCDDB();
 		CDs cd = bd.buscaPeloId(cdId);
 		System.out.println(cd);
+		ArrayList<GenerosType> listaGeneros = new ArrayList<GenerosType>(Arrays.asList(GenerosType.values()));
+		model.addAttribute("listaGeneros",listaGeneros);
 		model.addAttribute("cd",cd);
 		return "cd/mostrarCD";
 	}

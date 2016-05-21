@@ -10,7 +10,14 @@
 						<label>Nome:</label><input type="text" class="form-control"	value="${cd.nomeCD }"name="nomeCD"> 
 						<label>Preco:</label>	<input type="text" class="form-control" value="${cd.preco }" name="preco">
 						<label>Artista:</label><input type="text" class="form-control" value="${cd.nomeArtista }" name="nomeArtista">
-						<label>Genero:</label>	<input type="text" class="form-control" value="${cd.dscGenero }" name="dscGenero">
+						<label>Genero:</label>
+						<select class="form-control" name=genero >
+					
+							<option selected="selected">${cd.dscGenero }</option>
+						<c:forEach items="${listaGeneros}" var="generos">
+							<option>${generos}</option>
+						</c:forEach>
+						</select>
 						<label>Gravadora:</label>	<input type="text" class="form-control" value="${cd.gravadora }" name="gravadora">
 						<label>Ano	Lançamento:</label> <input value="${cd.dataLancamento }" type="text" class="form-control"name="dataLancamento" placeholder="Digite a data de lançamento do cd"> 
 						<a href=#><label data-toggle="collapse" data-target="#faixas">Faixas</label></a>
