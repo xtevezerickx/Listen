@@ -7,11 +7,11 @@
 				<h1>Alterar cd - ${cd.nomeCD}</h1>
 				<form class="form" method="post" action="alterarCD">
 					<div class="form-group" style="width: 400px">
-						<label>Nome:</label><input type="text" class="form-control"	value="${cd.nomeCD }"name="nomeCD" placeholder="Digite o titulo do CD"> 
-						<label>Preco:</label>	<input type="text" class="form-control" value="${cd.preco }" name="preco"  placeholder="Digite o preço do CD">
-						<label>Artista:</label><input type="text" class="form-control" value="" name="nomeArtista" placeholder="Digite o artista">
-						<label>Genero:</label>	<input type="text" class="form-control" value="" name="dscGenero"placeholder="Digite a gravadora do cd">
-						<label>Gravadora:</label>	<input type="text" class="form-control" value="${cd.gravadora }" name="gravadora"placeholder="Digite a gravadora do cd">
+						<label>Nome:</label><input type="text" class="form-control"	value="${cd.nomeCD }"name="nomeCD"> 
+						<label>Preco:</label>	<input type="text" class="form-control" value="${cd.preco }" name="preco">
+						<label>Artista:</label><input type="text" class="form-control" value="${cd.nomeArtista }" name="nomeArtista">
+						<label>Genero:</label>	<input type="text" class="form-control" value="${cd.dscGenero }" name="dscGenero">
+						<label>Gravadora:</label>	<input type="text" class="form-control" value="${cd.gravadora }" name="gravadora">
 						<label>Ano	Lançamento:</label> <input value="${cd.dataLancamento }" type="text" class="form-control"name="dataLancamento" placeholder="Digite a data de lançamento do cd"> 
 						<a href=#><label data-toggle="collapse" data-target="#faixas">Faixas</label></a>
 						<div id="faixas" class="collapse">

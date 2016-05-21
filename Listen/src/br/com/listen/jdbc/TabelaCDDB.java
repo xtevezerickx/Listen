@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.com.listen.model.CDs;
+import br.com.listen.utils.GenerosType;
 
 public class TabelaCDDB extends Conexao {
 
@@ -38,7 +39,8 @@ public class TabelaCDDB extends Conexao {
 				cd.setGravadora(rs.getString("gravadora"));
 				cd.setDataLancamento(rs.getInt("dataLancamento"));
 				cd.setDataCriacao(rs.getDate("dataCadastro"));
-				cd.setIdArtista(rs.getInt("idArtista"));
+				cd.setDscGenero(GenerosType.valueOf(rs.getString("dscGenero")));
+				cd.setNomeArtista(rs.getString("nomeArtista"));
 				lista.add(cd);
 			}
 		} catch (SQLException e) {
@@ -99,7 +101,8 @@ public class TabelaCDDB extends Conexao {
 			cd.setGravadora(rs.getString("gravadora"));
 			cd.setDataLancamento(rs.getInt("dataLancamento"));
 			cd.setDataCriacao(rs.getDate("dataCadastro"));
-			cd.setIdArtista(rs.getInt("idArtista"));
+			cd.setNomeArtista(rs.getString("nomeArtista"));
+			cd.setDscGenero(GenerosType.valueOf(rs.getString("dscGenero")));
 			}
 			return cd;
 		} catch (SQLException e) {
@@ -120,14 +123,15 @@ public class TabelaCDDB extends Conexao {
 			con = this.getConexao();
 			Date d1 = new Date();
 			java.sql.Date d2 = new java.sql.Date(d1.getTime());
-			String stn = "INSERT INTO cd(nomeCd,preco,gravadora,dataLancamento,dataCadastro,idArtista) VALUES (?, ?, ?, ?, ?,?)";
+			String stn = "INSERT INTO cd(nomeCd,preco,gravadora,dataLancamento,dataCadastro,nomeArtista,dscGenero) VALUES (?, ?, ?, ?, ?,?,?)";
 			pst = con.prepareStatement(stn);
 			pst.setString(1, cd.getNomeCD());
 			pst.setDouble(2, cd.getPreco());
 			pst.setString(3, cd.getGravadora());
 			pst.setInt(4, cd.getDataLancamento());
 			pst.setDate(5, d2);
-			pst.setInt(6, cd.getIdArtista());
+			pst.setString(6, cd.getNomeArtista());
+			pst.setString(7, cd.getDscGenero().name());
 			pst.executeUpdate();
 		} catch (Exception e) {
 			throw e;

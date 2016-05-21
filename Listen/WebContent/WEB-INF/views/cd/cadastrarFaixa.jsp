@@ -6,11 +6,11 @@
 				<h1>Cadastro de Faixas</h1>
 				<form class="form" method="post" action="adicionarFaixa">
 					<div id="faixas" >
-						<%for (int i = 0; i <= 10; i++) {%>
+						<c:forEach begin="1" end="10">
 						<input type="text" class="form-control" id="faixa"
 							name="faixa" placeholder="Digite a faixa do cd" style="width: 400px">
 						<br>
-						<%}%>
+						</c:forEach>
 					</div>
 					<div class="form-group container">
 							<button type="reset" class="btn btn-danger">Cancelar</button>

@@ -23,20 +23,8 @@
 						<c:forEach items="${cds}" var="cd">
 							<tr>
 								<td>${cd.nomeCD}</td>
-								
-								<td>
-								<c:forEach items="${listaArtista}" var="artista">
-									<c:if test="${artista.idArtista eq cd.idArtista }">
-										${artista.nomeArtista}
-									</c:if>
-								</c:forEach>
-								</td>
-						<td>
-
-						nada
-						
-						</td>
-																
+								<td>${cd.nomeArtista}</td>
+								<td>${cd.dscGenero}</td>			
 								<td>${cd.gravadora}</td>
 								<td>${cd.dataCriacao}</td>
 								<td>${cd.dataLancamento}</td>

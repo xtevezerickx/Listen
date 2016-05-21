@@ -2,6 +2,8 @@ package br.com.listen.model;
 
 import java.sql.Date;
 
+import br.com.listen.utils.GenerosType;
+
 public class CDs {
 
 	private int idCD;
@@ -10,14 +12,10 @@ public class CDs {
 	private int dataLancamento;
 	private Date dataCriacao;
 	private String gravadora;
-	private int idArtista;
+	private String nomeArtista;
+	private GenerosType dscGenero;
 	
-	public int getIdArtista() {
-		return idArtista;
-	}
-	public void setIdArtista(int idArtista) {
-		this.idArtista = idArtista;
-	}
+	
 	public String getGravadora() {
 		return gravadora;
 	}
@@ -56,11 +54,25 @@ public class CDs {
 	public void setNomeCD(String nomeCD) {
 		this.nomeCD = nomeCD;
 	}
+	public String getNomeArtista() {
+		return nomeArtista;
+	}
+	public void setNomeArtista(String nomeArtista) {
+		this.nomeArtista = nomeArtista;
+	}
+	public GenerosType getDscGenero() {
+		return dscGenero;
+	}
+	public void setDscGenero(GenerosType dscGenero) {
+		this.dscGenero = dscGenero;
+	}
 	@Override
 	public String toString() {
 		return "CDs [idCD=" + idCD + ", nomeCD=" + nomeCD + ", preco=" + preco + ", dataLancamento=" + dataLancamento
-				+ ", dataCriacao=" + dataCriacao + ", gravadora=" + gravadora + ", idArtista=" + idArtista + "]";
+				+ ", dataCriacao=" + dataCriacao + ", gravadora=" + gravadora + ", nomeArtista=" + nomeArtista
+				+ ", dscGenero=" + dscGenero + "]";
 	}
+	
 
 	
 	
