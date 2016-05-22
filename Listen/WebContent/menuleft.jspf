@@ -3,19 +3,21 @@
 	<label>Procure seu cd por:</label>
 
 	<div class="list-group">
-	<a><label data-toggle="collapse" data-target="#genero" class="list-group-item-heading">Genero</label></a>
-	<div id="genero" class="collapse">
-
-		<c:forEach items="${listaGenero}" var="genero">
-			<a href="" class="list-group-item">${genero.dscGenero}</a>
-		</c:forEach>
-		
+	<a href="#"class="list-group-item active" data-toggle="collapse" data-target="#genero"><strong>Genero</strong>  <span class="glyphicon glyphicon-chevron-down"></span></a>
+		<div id="genero" class="collapse">
+			<c:forEach items="${listaGeneros}" var="genero">
+				<a href="" class="list-group-item">${genero}</a>
+			</c:forEach>
 		</div>
 	</div>
-	<p>
-		<a href="#"></a>
-	</p>
-	<p>
-		<a href="#">Link</a>
-	</p>
+	
+	<div class="list-group">
+	<a href="#"class="list-group-item active" data-toggle="collapse" data-target="#artista"><strong>Artista</strong>  <span class="glyphicon glyphicon-chevron-down"></span></a>
+		<div id="artista" class="collapse">
+			<c:forEach items="${listaArtistas}" var="artista">
+				<a href="" class="list-group-item">${artista}</a>
+			</c:forEach>
+		</div>
+	</div> 
+
 </div>

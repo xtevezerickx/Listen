@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 import br.com.listen.model.CDs;
 import br.com.listen.utils.GenerosType;
@@ -18,6 +20,36 @@ public class TabelaCDDB extends Conexao {
 
 	}
 
+	public TreeSet<String> listaTodosArtistas() throws SQLException, Exception {
+		TreeSet<String> lista = new TreeSet<String>();
+		Connection con = null;
+		try {
+			con = this.getConexao();
+		} catch (Exception e) {
+			throw e;
+		}
+		ResultSet rs = null;
+		Statement stm = null;
+		try {
+			stm = con.createStatement();
+			rs = stm.executeQuery("SELECT nomeArtista FROM CD");
+			while (rs.next()) {
+				lista.add(rs.getString("nomeArtista"));
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			System.out.println("Erro Desconhecido" + e.getMessage());
+			throw e;
+		} finally {
+			if (rs != null)
+				rs.close();
+			this.close();
+		}
+		return lista;
+	}
+	
+	
 	public ArrayList<CDs> findAll() throws SQLException, Exception {
 		ArrayList<CDs> lista = new ArrayList<CDs>();
 		Connection con = null;
@@ -140,14 +172,20 @@ public class TabelaCDDB extends Conexao {
 		}
 	}
 
-	public void update(CDs aux) throws Exception {
+	public void update(CDs cd) throws Exception {
 		PreparedStatement pst = null;
 		Connection con = null;
 		try {
 			con = this.getConexao();
-			String stn = "UPDATE CDs SET codigoArtista=?, codigoGenero=?, titulo=?, preco=? WHERE codigoCD=?";
+			String stn = "UPDATE cd SET nomeCd=?, preco=?, gravadora=?, dataLancamento=?,nomeArtista=?,dscGenero=? WHERE idCd=?";
 			pst = con.prepareStatement(stn);
-		
+			pst.setString(1, cd.getNomeCD());
+			pst.setDouble(2, cd.getPreco());
+			pst.setString(3, cd.getGravadora());
+			pst.setInt(4, cd.getDataLancamento());
+			pst.setString(5, cd.getNomeArtista());
+			pst.setString(6, cd.getDscGenero().name());
+			pst.setInt(7, cd.getIdCD());
 			pst.executeUpdate();
 		} catch (Exception e) {
 			throw e;

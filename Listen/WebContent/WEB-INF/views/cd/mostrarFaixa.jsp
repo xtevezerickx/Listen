@@ -3,8 +3,8 @@
 	<div class="container-fluid text-center">
 		<div class="row content">
 			<div class="col-sm-12 text-left">
-				<h1>Cadastro de Faixas</h1>
-				<form class="form" method="post" action="adicionarFaixa">
+				<h1>Cadastro de Faixas - ${cdId }</h1>
+				<form class="form" method="post" action="adicionarFaixa?cdId=${cdId}">
 					<div id="faixas" >
 						<c:forEach begin="1" end="10">
 						<input type="text" class="form-control" id="faixa"

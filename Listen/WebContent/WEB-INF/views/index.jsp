@@ -64,7 +64,9 @@ $(document).ready(function(){
 																				
 												</c:forEach>
 												Gravadora: ${cd.gravadora}	<br>
-												Lan&ccedilamento: ${cd.dataLancamento }
+												Lan&ccedilamento: ${cd.dataLancamento } <br>
+												Artista: ${cd.nomeArtista }<br>
+												Genero: ${cd.dscGenero }
 													
 													">
 											   <button type="button"

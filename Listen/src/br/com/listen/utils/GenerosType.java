@@ -1,21 +1,23 @@
 package br.com.listen.utils;
 
-public enum GenerosType {
+public enum GenerosType implements Comparable<GenerosType>{
 	ROCK("Rock"),
 	POP("Pop"),
 	SAMBA("Samba"),
-	SERTANEJO("Sertanejo"),
-	ELETRONICA("Eletronica");
-	
+	SERTANEJO("Sertanejo"), 
+	ELETRONICA("Eletronica"),
+	HIPHOP("Hip-Hop");
+
 	String descricao;
-	
-	private GenerosType(String descricao){
-		this.descricao=descricao;
+
+	private GenerosType(String descricao) {
+		this.descricao = descricao;
 	}
-	
-	public String getDescricao(){
+
+	public String getDescricao() {
 		return this.descricao;
 	}
+
 	
-	
+
 }

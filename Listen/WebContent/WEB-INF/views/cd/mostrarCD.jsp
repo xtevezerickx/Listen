@@ -5,8 +5,9 @@
 		<div class="row content">
 			<div class="col-sm-12 text-left">
 				<h1>Alterar cd - ${cd.nomeCD}</h1>
-				<form class="form" method="post" action="alterarCD">
+				<form class="form" method="post" action="alterarCd">
 					<div class="form-group" style="width: 400px">
+						<input type="hidden" name=idCD value="${cd.idCD}"> ${cd.idCD}
 						<label>Nome:</label><input type="text" class="form-control"	value="${cd.nomeCD }"name="nomeCD"> 
 						<label>Preco:</label>	<input type="text" class="form-control" value="${cd.preco }" name="preco">
 						<label>Artista:</label><input type="text" class="form-control" value="${cd.nomeArtista }" name="nomeArtista">

@@ -6,6 +6,16 @@
 	<div class="container-fluid text-center">
 		<div class="row content">
 			<div class="col-sm-12 text-center">
+			
+			<c:if test="${msg != null }">
+			<div class="alert alert-success">
+    			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    			<strong>Parabéns!</strong> ${msg}
+  			</div>
+			</c:if>
+			
+		
+			
 				<h1>Alteração de CDs</h1>
 				<table class="table table-hover">
 					<thead>
@@ -28,7 +38,13 @@
 								<td>${cd.gravadora}</td>
 								<td>${cd.dataCriacao}</td>
 								<td>${cd.dataLancamento}</td>
-							<th></th>
+								
+								<th>
+								<a href="mostrarFaixa?cdId=${cd.idCD}" class="btn btn-success btn-sm"> <span
+										class="glyphicon glyphicon-plus"></span> Adicionar Faixas
+								</a>
+								</th>
+							
 								<th><a href="mostrarCD?cdId=${cd.idCD}" class="btn btn-primary btn-sm"> <span
 										class="glyphicon glyphicon-search"></span> Alterar
 								</a></th>
