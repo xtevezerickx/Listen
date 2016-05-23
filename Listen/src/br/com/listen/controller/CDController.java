@@ -116,18 +116,21 @@ public class CDController {
 
 	@RequestMapping("index")
 	public void index(Model model) throws SQLException, Exception {
+
 		ArrayList<GenerosType> listaGeneros = new ArrayList<GenerosType>(Arrays.asList(GenerosType.values()));	
+		
 		ArrayList<Genero> listaQuantidadePorGenero = new ArrayList<>();
+	
 		for(int i=0;i<listaGeneros.size();i++){
 			Genero genero = new Genero();
 			genero.setQtdGenero(new GeneroDB().buscaQuantidadePorGenero(listaGeneros.get(i).name()));
-			genero.setDscGenero(listaGeneros.get(i).name());
+			genero.setDscGenero(listaGeneros.get(i).getDescricao());
 			listaQuantidadePorGenero.add(genero);
 		}
 		
 		TreeSet<Artista> tree = new TabelaCDDB().listaTodosArtistasOrdem();
-		
 		List<Artista> listaArtistas = new ArrayList<Artista>(tree);
+		
 		System.out.println("antes do loop"+listaArtistas);
 		
 		for(int i=0;i<listaArtistas.size();i++){
@@ -135,7 +138,6 @@ public class CDController {
 		}
 		
 		System.out.println("depois do loop"+listaArtistas);
-		System.out.println(new TabelaCDDB().listaTodosArtistasOrdem());
 			
 		model.addAttribute("cds", new TabelaCDDB().buscaTodosLancamentos());
 		model.addAttribute("quantidadePorGenero",listaQuantidadePorGenero);	
