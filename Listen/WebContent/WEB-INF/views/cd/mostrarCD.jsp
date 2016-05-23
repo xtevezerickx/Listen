@@ -44,10 +44,10 @@
 						</c:forEach>
 
 						</div>
-						<div class="form-group container">
+						<p style="text-align:right;">
 							<button type="reset" class="btn btn-danger">Cancelar</button>
 							<button type="submit" class="btn btn-primary">Cadastrar</button>
-						</div>
+						</p>
 					</div>
 				</form>
 			</div>

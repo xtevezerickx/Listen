@@ -35,7 +35,7 @@ $(document).ready(function(){
 				<hr>
 				<div class="container">
 					<div class="row">
-						<c:forEach items="${cds}" var="cd">
+							<c:forEach items="${cds}" var="cd">
 							<div class="col-sm-4 col-md-3">
 								<div class="productbox">
 									<div class="imgthumb img-responsive">
@@ -53,12 +53,12 @@ $(document).ready(function(){
 											<button type="button"class="btn btn-primary btn-md btn-block">
 											
 											Adicionar ao Carrinho
-											<span class="glyphicon glyphicon-plus-sign"></span>
+											<span class="glyphicon glyphicon-plus"></span>
 											</button>
 											
 											
 											
-											<a style="text-decoration:none;" title="Faixas do CD" 
+											<a style="text-decoration:none;" title="Outras Informa&ccedil&otildees" 
 											 data-toggle="popover" 
 											 data-trigger="focus"
 											 data-placement="auto bottom"
@@ -66,9 +66,7 @@ $(document).ready(function(){
 											  <c:forEach items="${listaDeFaixas}" var="faixa">
 												<c:if test="${cd.idCD eq faixa.idCd }">
 												Faixa ${faixa.numFaixa } - ${faixa.dscFaixa}
-												<br />
-												
-												
+												<br />												
 												</c:if>	
 																				
 												</c:forEach>
@@ -81,8 +79,9 @@ $(document).ready(function(){
 											   <button type="button"
 												class="btn btn-info btn-md btn-block">
 												
-												Mais Informa&ccedil&otildees...
-												<span class="glyphicons glyphicons-info-sign"></span></button>
+												Mais Informa&ccedil&otildees
+												<span class="glyphicon glyphicon-info-sign"></span>
+												</button>
 											  
 											  </a>
 										

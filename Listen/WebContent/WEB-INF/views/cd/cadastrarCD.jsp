@@ -20,10 +20,12 @@
 
 						<label>Gravadora:</label>	<input type="text" class="form-control" value="teste" name="gravadora" placeholder="Digite a gravadora do cd">
 						<label>Ano	Lançamento:</label> <input value="1994" type="text" class="form-control"name="dataLancamento" placeholder="Digite a data de lançamento do cd"> 
-						<div class="form-group container">
+						
+						<br>
+						<p style="text-align:right;">
 							<button type="reset" class="btn btn-danger">Cancelar</button>
 							<button type="submit" class="btn btn-primary">Cadastrar</button>
-						</div>
+						</p>
 					</div>
 				</form>
 			</div>
