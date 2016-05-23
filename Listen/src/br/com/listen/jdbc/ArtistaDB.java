@@ -11,24 +11,10 @@ import br.com.listen.model.Artista;
 import br.com.listen.model.CDs;
 
 public class ArtistaDB extends Conexao{
-	public void insert(Artista artista) throws Exception {
+
+	
+	public int buscaQuantidaePorArtista(String artista) throws Exception{
 		PreparedStatement pst = null;
-		Connection con = null;
-		try {
-			con = this.getConexao();
-			String stn = "INSERT INTO artista(nomeArtista,idGenero) VALUES (?,?)";
-			pst = con.prepareStatement(stn);
-			pst.setString(1, artista.getNomeArtista());
-			pst.setInt(2, artista.getIdGenero());
-			pst.executeUpdate();
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			this.close();
-		}
-	}
-	public ArrayList<Artista> listaTodosArtistas() throws SQLException, Exception {
-		ArrayList<Artista> listaArtista = new ArrayList<Artista>();
 		Connection con = null;
 		try {
 			con = this.getConexao();
@@ -36,17 +22,12 @@ public class ArtistaDB extends Conexao{
 			throw e;
 		}
 		ResultSet rs = null;
-		Statement stm = null;
 		try {
-			stm = con.createStatement();
-			rs = stm.executeQuery("SELECT * FROM artista");
-			while (rs.next()) {
-				Artista artista = new Artista();
-				artista.setIdArtista(rs.getInt("idArtista"));
-				artista.setIdGenero(rs.getInt("idGenero"));
-				artista.setNomeArtista(rs.getString("nomeArtista"));
-				
-				listaArtista.add(artista);
+			pst = con.prepareStatement("SELECT COUNT(*) AS total FROM cd WHERE nomeArtista LIKE ?");
+			pst.setString(1,artista);
+			rs = pst.executeQuery();
+			if(rs.next()){
+				return rs.getInt("total");
 			}
 		} catch (SQLException e) {
 			throw e;
@@ -58,8 +39,10 @@ public class ArtistaDB extends Conexao{
 				rs.close();
 			this.close();
 		}
-		return listaArtista;
+		return 0;
+		
 	}
+	
 	
 	public int descobreId(Artista artista) throws SQLException, Exception {
 		Connection con = null;

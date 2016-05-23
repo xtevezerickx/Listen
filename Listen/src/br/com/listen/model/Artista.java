@@ -1,15 +1,14 @@
 package br.com.listen.model;
 
-public class Artista {
+public class Artista implements Comparable<Artista> {
 
-	private int idArtista;
+	private int qtdArtista;
 	private String nomeArtista;
-	private int idGenero;
-	public int getIdArtista() {
-		return idArtista;
+	public int getQtdArtista() {
+		return qtdArtista;
 	}
-	public void setIdArtista(int idArtista) {
-		this.idArtista = idArtista;
+	public void setQtdArtista(int qtdArtista) {
+		this.qtdArtista = qtdArtista;
 	}
 	public String getNomeArtista() {
 		return nomeArtista;
@@ -17,16 +16,15 @@ public class Artista {
 	public void setNomeArtista(String nomeArtista) {
 		this.nomeArtista = nomeArtista;
 	}
-	public int getIdGenero() {
-		return idGenero;
-	}
-	public void setIdGenero(int idGenero) {
-		this.idGenero = idGenero;
-	}
 	@Override
 	public String toString() {
-		return "Artista [idArtista=" + idArtista + ", nomeArtista=" + nomeArtista + ", idGenero=" + idGenero + "]";
+		return "Artista [qtdArtista=" + qtdArtista + ", nomeArtista=" + nomeArtista + "]";
 	}
+	@Override
+	public int compareTo(Artista o) {
+		return this.nomeArtista.compareTo(o.nomeArtista);
+	}
+	
 
 	
 }

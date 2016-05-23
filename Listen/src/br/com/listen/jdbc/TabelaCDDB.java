@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import br.com.listen.model.Artista;
 import br.com.listen.model.CDs;
+import br.com.listen.model.Faixas;
 import br.com.listen.utils.GenerosType;
 
 public class TabelaCDDB extends Conexao {
@@ -19,9 +21,90 @@ public class TabelaCDDB extends Conexao {
 		super();
 
 	}
+	
+	public ArrayList<CDs> buscaPaginadaPorNomeCd(int numeroPagina,String valorBusca) throws SQLException, Exception {
+		//TODO
+		ArrayList<CDs> lista = new ArrayList<CDs>();
+		Connection con = null;
+		try {
+			con = this.getConexao();
+		} catch (Exception e) {
+			throw e;
+		}
+		ResultSet rs = null;
+		PreparedStatement pst = null;
+		try {
+			numeroPagina=(numeroPagina-1)*8;
+			pst = con.prepareStatement("SELECT * FROM cd WHERE nomeCd LIKE '%?%' LIMIT ?,8");
+			pst.setString(1, valorBusca);
+			pst.setInt(2, numeroPagina);
+			rs=pst.executeQuery();
+						
+			while (rs.next()) {
+				CDs cd = new CDs();
+				cd.setIdCD(rs.getInt("idCd"));
+				cd.setNomeCD(rs.getString("nomeCd"));
+				cd.setPreco(rs.getDouble("preco"));
+				cd.setGravadora(rs.getString("gravadora"));
+				cd.setDataLancamento(rs.getInt("dataLancamento"));
+				cd.setDataCriacao(rs.getDate("dataCadastro"));
+				cd.setDscGenero(GenerosType.valueOf(rs.getString("dscGenero")));
+				cd.setNomeArtista(rs.getString("nomeArtista"));
+				lista.add(cd);
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			System.out.println("Erro Desconhecido" + e.getMessage());
+			throw e;
+		} finally {
+			if (rs != null)
+				rs.close();
+			this.close();
+		}
+		return lista;
+	}
+	
+	public ArrayList<CDs> buscaTodosLancamentos() throws SQLException, Exception {
+		ArrayList<CDs> lista = new ArrayList<CDs>();
+		Connection con = null;
+		try {
+			con = this.getConexao();
+		} catch (Exception e) {
+			throw e;
+		}
+		ResultSet rs = null;
+		Statement stm = null;
+		try {
+			stm = con.createStatement();
+			rs = stm.executeQuery("SELECT * FROM cd ORDER BY dataLancamento DESC,idCd ASC LIMIT 0,8");
+			while (rs.next()) {
+				CDs cd = new CDs();
+				cd.setIdCD(rs.getInt("idCd"));
+				cd.setNomeCD(rs.getString("nomeCd"));
+				cd.setPreco(rs.getDouble("preco"));
+				cd.setGravadora(rs.getString("gravadora"));
+				cd.setDataLancamento(rs.getInt("dataLancamento"));
+				cd.setDataCriacao(rs.getDate("dataCadastro"));
+				cd.setDscGenero(GenerosType.valueOf(rs.getString("dscGenero")));
+				cd.setNomeArtista(rs.getString("nomeArtista"));
+				lista.add(cd);
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			System.out.println("Erro Desconhecido" + e.getMessage());
+			throw e;
+		} finally {
+			if (rs != null)
+				rs.close();
+			this.close();
+		}
+		return lista;
+	}
 
-	public TreeSet<String> listaTodosArtistas() throws SQLException, Exception {
-		TreeSet<String> lista = new TreeSet<String>();
+	public TreeSet<Artista> listaTodosArtistasOrdem() throws SQLException, Exception {
+		TreeSet<Artista> lista = new TreeSet<Artista>();
 		Connection con = null;
 		try {
 			con = this.getConexao();
@@ -34,7 +117,38 @@ public class TabelaCDDB extends Conexao {
 			stm = con.createStatement();
 			rs = stm.executeQuery("SELECT nomeArtista FROM CD");
 			while (rs.next()) {
-				lista.add(rs.getString("nomeArtista"));
+				Artista artista= new Artista();
+				artista.setNomeArtista(rs.getString("nomeArtista"));
+				lista.add(artista);
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			System.out.println("Erro Desconhecido" + e.getMessage());
+			throw e;
+		} finally {
+			if (rs != null)
+				rs.close();
+			this.close();
+		}
+		return lista;
+	}
+	public ArrayList<Artista> listaTodosArtistas() throws SQLException, Exception {
+		ArrayList<Artista> lista = new ArrayList<Artista>();
+		Connection con = null;
+		try {
+			con = this.getConexao();
+		} catch (Exception e) {
+			throw e;
+		}
+		ResultSet rs = null;
+		Statement stm = null;
+		try {
+			stm = con.createStatement();
+			rs = stm.executeQuery("SELECT nomeArtista FROM CD");
+			while (rs.next()) {
+				
+				//lista.add(rs.getString("nomeArtista"));
 			}
 		} catch (SQLException e) {
 			throw e;
@@ -217,6 +331,41 @@ public class TabelaCDDB extends Conexao {
 			throw e;
 		} 
 		con.close();
+	}
+
+	public ArrayList<Faixas> listarFaixasPorId(int cdId) throws Exception {
+		
+		ArrayList<Faixas> listaFaixas = new ArrayList<Faixas>();
+		PreparedStatement pst = null;
+		Connection con = null;
+		try {
+			con = this.getConexao();
+		} catch (Exception e) {
+			throw e;
+		}
+		ResultSet rs = null;
+		try {
+			pst = con.prepareStatement("select * from faixa where idCd = ? ");
+			pst.setInt(1, cdId);
+			rs = pst.executeQuery();
+			while(rs.next()){
+				Faixas faixa = new Faixas();
+				faixa.setDscFaixa(rs.getString("dscFaixa"));
+				faixa.setIdCd(rs.getInt("idCd"));
+				faixa.setNumFaixa(rs.getInt("numFaixa"));
+				listaFaixas.add(faixa);
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			System.out.println("Erro Desconhecido" + e.getMessage());
+			throw e;
+		} finally {
+			if (rs != null)
+				rs.close();
+			this.close();
+		}
+		return listaFaixas;
 	}
 
 }

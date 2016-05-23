@@ -3,17 +3,13 @@ package br.com.listen.controller;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import br.com.listen.jdbc.ArtistaDB;
 import br.com.listen.jdbc.FaixasDB;
@@ -42,12 +38,14 @@ public class CDController {
 
 	@RequestMapping("mostrarCD")
 	public String alterarCD(int cdId, Model model) throws Exception {
-		System.out.println(cdId);
 		TabelaCDDB bd = new TabelaCDDB();
 		CDs cd = bd.buscaPeloId(cdId);
-		System.out.println("O cd é :"+cd);
+		System.out.println("O cd Ã© :"+cd);
 		ArrayList<GenerosType> listaGeneros = new ArrayList<GenerosType>(Arrays.asList(GenerosType.values()));
 		model.addAttribute("listaGeneros", listaGeneros);
+		ArrayList<Faixas> listaFaixas=new TabelaCDDB().listarFaixasPorId(cdId);
+		System.out.println("lista de faixas em mostrar cd e:"+listaFaixas);
+		model.addAttribute("listaFaixas",listaFaixas);
 		model.addAttribute("cd", cd);
 
 		return "cd/mostrarCD";
@@ -62,9 +60,10 @@ public class CDController {
 	}
 
 	@RequestMapping("mostrarFaixa")
-	public String formCadastrarFaixa(int cdId, Model model) {
+	public String formCadastrarFaixa(int cdId, Model model) throws Exception {
 		System.out.println("entrou no mostrar faixa com id:" + cdId);
 		model.addAttribute("cdId", cdId);
+		
 		return "cd/mostrarFaixa";
 	}
 
@@ -73,7 +72,7 @@ public class CDController {
 			throws SQLException, Exception {
 		System.out.println("entrou no adicionarFaixa com id:" + cdId);
 		cadastrarFaixa(cdId, faixa);
-		model.addAttribute("msg", "Você adicionou novas faixas com sucesso!");
+		model.addAttribute("msg", "VocÃª adicionou novas faixas com sucesso!");
 		return "redirect:listarCd";
 	}
 
@@ -81,10 +80,9 @@ public class CDController {
 	public String AdicionarCD(Model model, CDs cd, @RequestParam("genero") String genero)
 			throws SQLException, Exception {
 		cd.setDscGenero(GenerosType.valueOf(genero));
-		System.out.println("Passou por aqui ?");
 		System.out.println(cd);
 		new TabelaCDDB().insert(cd);
-		model.addAttribute("msg", "Você adicionou um novo CD com sucesso!");
+		model.addAttribute("msg", "VocÃª adicionou um novo CD com sucesso!");
 		return "redirect:listarCd";
 	}
 
@@ -118,16 +116,32 @@ public class CDController {
 
 	@RequestMapping("index")
 	public void index(Model model) throws SQLException, Exception {
-		model.addAttribute("cds", new TabelaCDDB().findAll());
-		ArrayList<GenerosType> listaGeneros = new ArrayList<GenerosType>(Arrays.asList(GenerosType.values()));
-		java.util.Collections.sort(listaGeneros);
-		System.out.println("a lista esta assim"+listaGeneros);
-		model.addAttribute("listaArtistas",new TabelaCDDB().listaTodosArtistas());
-		model.addAttribute("listaGeneros", listaGeneros);
-		for (CDs cd : new TabelaCDDB().findAll()) {
-			model.addAttribute("listaDeFaixas", new FaixasDB().listarTodasFaixas());
+		ArrayList<GenerosType> listaGeneros = new ArrayList<GenerosType>(Arrays.asList(GenerosType.values()));	
+		ArrayList<Genero> listaQuantidadePorGenero = new ArrayList<>();
+		for(int i=0;i<listaGeneros.size();i++){
+			Genero genero = new Genero();
+			genero.setQtdGenero(new GeneroDB().buscaQuantidadePorGenero(listaGeneros.get(i).name()));
+			genero.setDscGenero(listaGeneros.get(i).name());
+			listaQuantidadePorGenero.add(genero);
 		}
-		// return "index";
+		
+		TreeSet<Artista> tree = new TabelaCDDB().listaTodosArtistasOrdem();
+		
+		List<Artista> listaArtistas = new ArrayList<Artista>(tree);
+		System.out.println("antes do loop"+listaArtistas);
+		
+		for(int i=0;i<listaArtistas.size();i++){
+			listaArtistas.get(i).setQtdArtista(new ArtistaDB().buscaQuantidaePorArtista(listaArtistas.get(i).getNomeArtista()));
+		}
+		
+		System.out.println("depois do loop"+listaArtistas);
+		System.out.println(new TabelaCDDB().listaTodosArtistasOrdem());
+			
+		model.addAttribute("cds", new TabelaCDDB().buscaTodosLancamentos());
+		model.addAttribute("quantidadePorGenero",listaQuantidadePorGenero);	
+		model.addAttribute("listaArtistas",listaArtistas);
+		model.addAttribute("listaDeFaixas", new FaixasDB().listarTodasFaixas());
+
 	}
 
 	

@@ -1,13 +1,13 @@
 package br.com.listen.model;
 
 public class Genero {
-	private int idGenero;
+	private int qtdGenero;
 	private String dscGenero;
-	public int getIdGenero() {
-		return idGenero;
+	public int getQtdGenero() {
+		return qtdGenero;
 	}
-	public void setIdGenero(int idGenero) {
-		this.idGenero = idGenero;
+	public void setQtdGenero(int qtdGenero) {
+		this.qtdGenero = qtdGenero;
 	}
 	public String getDscGenero() {
 		return dscGenero;
@@ -17,9 +17,10 @@ public class Genero {
 	}
 	@Override
 	public String toString() {
-		return "Genero [idGenero=" + idGenero + ", dscGenero=" + dscGenero + "]";
+		return "Genero [qtdGenero=" + qtdGenero + ", dscGenero=" + dscGenero + "]";
 	}
-
+	
+	
 	
 
 }

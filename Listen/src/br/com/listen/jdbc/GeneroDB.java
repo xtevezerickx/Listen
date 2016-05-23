@@ -5,12 +5,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
-import br.com.listen.model.Artista;
 import br.com.listen.model.Genero;
 
 public class GeneroDB extends Conexao {
+	
+	public int buscaQuantidadePorGenero(String genero) throws Exception{
+		PreparedStatement pst = null;
+		Connection con = null;
+		try {
+			con = this.getConexao();
+		} catch (Exception e) {
+			throw e;
+		}
+		ResultSet rs = null;
+		try {
+			pst = con.prepareStatement("SELECT COUNT(*) AS total FROM cd WHERE dscGenero LIKE ?");
+			pst.setString(1,"%"+genero+"%");
+			rs = pst.executeQuery();
+			if(rs.next()){
+				return rs.getInt("total");
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			System.out.println("Erro Desconhecido" + e.getMessage());
+			throw e;
+		} finally {
+			if (rs != null)
+				rs.close();
+			this.close();
+		}
+		return 0;
+		
+	}
+	
+	
 	public void insert(Genero genero) throws Exception {
 		PreparedStatement pst = null;
 		Connection con = null;
@@ -27,38 +57,7 @@ public class GeneroDB extends Conexao {
 		}
 	}
 	
-	public ArrayList<Genero> listaTodosGeneros() throws SQLException, Exception {
-		ArrayList<Genero> listaGenero = new ArrayList<Genero>();
-		Connection con = null;
-		try {
-			con = this.getConexao();
-		} catch (Exception e) {
-			throw e;
-		}
-		ResultSet rs = null;
-		Statement stm = null;
-		try {
-			stm = con.createStatement();
-			rs = stm.executeQuery("SELECT * FROM genero");
-			while (rs.next()) {
-				Genero genero = new Genero();
-				genero.setDscGenero(rs.getString("dscGenero"));
-				genero.setIdGenero(rs.getInt("idGenero"));
-				listaGenero.add(genero);
-			}
-		} catch (SQLException e) {
-			throw e;
-		} catch (Exception e) {
-			System.out.println("Erro Desconhecido" + e.getMessage());
-			throw e;
-		} finally {
-			if (rs != null)
-				rs.close();
-			this.close();
-		}
-		return listaGenero;
-	}
-
+	
 	public int descobreId(Genero genero) throws SQLException, Exception {
 		Connection con = null;
 		try {

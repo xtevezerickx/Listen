@@ -8,6 +8,11 @@ $(document).ready(function(){
     	container:'body'
     });   
 });
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+
 </script>
 <style>
 .popover{
@@ -25,7 +30,7 @@ $(document).ready(function(){
 		<div class="row content">
 		<%@include file="/menuleft.jspf" %>
 			<div style="background-color:white;"class="col-sm-10 text-center">
-				<h1>Listen</h1>
+				<h2>&Uacuteltimos Lan&ccedilamentos</h2>
 				<hr>
 				<div class="container">
 					<div class="row">
@@ -35,10 +40,12 @@ $(document).ready(function(){
 									<div class="imgthumb img-responsive">
 										<img src=<c:url value="/imagens/CD.png" /> width="50%" alt="imagem">
 									</div>
+									
 									<div class="caption">
 										
+										
 										<h5><strong>${cd.nomeCD}</strong></h5>
-										<b class="finalprice">Pre&ccedilo R$ ${cd.preco}</b>
+										<b class="price">Pre&ccedilo R$ ${cd.preco}</b>
 										<p>
 										
 											
@@ -53,7 +60,7 @@ $(document).ready(function(){
 											 data-toggle="popover" 
 											 data-trigger="focus"
 											 data-placement="auto bottom"
-											  data-content="
+											 data-content="
 											  <c:forEach items="${listaDeFaixas}" var="faixa">
 												<c:if test="${cd.idCD eq faixa.idCd }">
 												Faixa ${faixa.numFaixa } - ${faixa.dscFaixa}
@@ -83,6 +90,8 @@ $(document).ready(function(){
 								</div>
 							</div>
 						</c:forEach>
+						
+						
 					</div>
 					<!--/row-->
 				</div>
@@ -91,5 +100,15 @@ $(document).ready(function(){
 		</div>
 	</div>
 </body>
+<footer style= "background-color: white;" class="text-center footer">
+<ul class="pagination" style="align:center;">
+    						<li><a href="#">1</a></li>
+    						<li><a href="#">2</a></li>
+    						<li><a href="#">3</a></li>
+   							<li><a href="#">4</a></li>
+   							<li><a href="#">5</a></li>
+  						</ul>
+
+</footer>
 
 <%@include file="/footer.jspf"%>

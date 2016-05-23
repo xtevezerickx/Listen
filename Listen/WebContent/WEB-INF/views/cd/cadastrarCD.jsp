@@ -10,7 +10,7 @@
 						
 						<label>Nome:</label><input type="text" class="form-control"	value="teste"name="nomeCD" placeholder="Digite o titulo do CD"> 
 						<label>Preco:</label>	<input type="text" class="form-control" value="10.50" name="preco"  placeholder="Digite o preço do CD">
-						<label>Artista:</label><input type="text" class="form-control" value="5" name="nomeArtista" placeholder="Digite o artista">
+						<label>Artista:</label><input type="text" class="form-control" value="Artista" name="nomeArtista" placeholder="Digite o artista">
 						<label>Genero:</label>
 						<select class="form-control" name=genero>
 						<c:forEach items="${listaGeneros}" var="generos">

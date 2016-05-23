@@ -2,6 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@include file="/header.jspf"%>
+<style>
+	.table th{
+		text-align: center;
+	}
+</style>
 <body>
 	<div class="container-fluid text-center">
 		<div class="row content">
@@ -26,7 +31,7 @@
 							<th>Gravadora</th>
 							<th>Data Criacao</th>
 							<th>Ano Lançamento</th>
-							<th colspan="2">Opções</th>
+							<th colspan="3">Opções</th>
 						</tr>
 					</thead>
 					<tbody>
