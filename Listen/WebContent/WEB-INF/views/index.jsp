@@ -51,8 +51,9 @@ $(document).ready(function(){
 										
 											
 											<button type="button"class="btn btn-primary btn-md btn-block">
-											<span class="glyphicon glyphicon-plus-sign"></span>
+											
 											Adicionar ao Carrinho
+											<span class="glyphicon glyphicon-plus-sign"></span>
 											</button>
 											
 											
@@ -79,7 +80,9 @@ $(document).ready(function(){
 													">
 											   <button type="button"
 												class="btn btn-info btn-md btn-block">
-												Mais Informa&ccedil&otildees...</button>
+												
+												Mais Informa&ccedil&otildees...
+												<span class="glyphicons glyphicons-info-sign"></span></button>
 											  
 											  </a>
 										
