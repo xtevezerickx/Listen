@@ -31,7 +31,7 @@
 							<th>Gravadora</th>
 							<th>Data Criacao</th>
 							<th>Ano Lançamento</th>
-							<th colspan="3">Opções</th>
+							<th colspan="4">Opções</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,6 +47,11 @@
 								<th>
 								<a href="mostrarFaixa?cdId=${cd.idCD}" class="btn btn-success btn-sm"> <span
 										class="glyphicon glyphicon-plus"></span> Adicionar Faixas
+								</a>
+								</th>
+								<th>
+								<a href="uploadImagem?cdId=${cd.idCD}" class="btn btn-info btn-sm"> <span
+										class="glyphicon glyphicon-picture"></span> Adicionar Imagem
 								</a>
 								</th>
 							
