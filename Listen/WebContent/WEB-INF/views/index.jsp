@@ -14,6 +14,7 @@ $(document).ready(function(){
 });
 
 
+
 </script>
 <style>
 .popover{
@@ -39,7 +40,8 @@ $(document).ready(function(){
 							<div class="col-sm-4 col-md-3">
 								<div class="productbox">
 									<div class="imgthumb img-responsive">
-										<img src=<c:url value="/imagens/CD${cd.idCD}.png" /> width="150px" height="150px" alt="/imagens/CD${cd.idCD}.png">
+		
+										<img src=<c:url value="/imagens/CD${cd.idCD}.png" /> width="150px" height="150px" alt="/imagens/CD.png">
 									</div>
 									
 									

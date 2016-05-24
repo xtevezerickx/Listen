@@ -12,23 +12,19 @@
 						<label>Preço:</label>	<input type="text" class="form-control" value="${cd.preco }" name="preco">
 						<label>Artista:</label><input type="text" class="form-control" value="${cd.nomeArtista }" name="nomeArtista">
 						<label>Genero:</label>
-						<select class="form-control" name=genero >
+						<select class="form-control" name=dscGenero >
 					
-							
-							<c:forEach items="${listaGeneros}" var="generos">
+							<c:forEach items="${listaGeneros}" var="genero">
 								<c:choose>
-									<c:when test="${cd.dscGenero eq generos }">
+									<c:when test="${cd.dscGenero eq genero }">
 									<option selected="selected">${cd.dscGenero }</option>
 									</c:when>
 								<c:otherwise>
-									<option>${generos}</option>
+									<option>${genero}</option>
 								</c:otherwise>
 								
 								</c:choose>
-							
-							
-							
-															
+					
 							</c:forEach>
 						</select>
 						

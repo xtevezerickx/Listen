@@ -10,7 +10,7 @@ public class Conexao {
 		String driver = "com.mysql.jdbc.Driver";
 		String URL = "jdbc:mysql://localhost/listen";
 		String login = "root";
-		String senha = "";
+		String senha = "1234";
 		dbConn = null;
 		try{
 			Class.forName(driver);

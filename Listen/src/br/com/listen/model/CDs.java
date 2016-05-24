@@ -1,19 +1,15 @@
 package br.com.listen.model;
 
-import java.sql.Date;
-
-import br.com.listen.utils.GenerosType;
-
 public class CDs {
 
 	private int idCD;
 	private String nomeCD;
 	private double preco;
 	private int dataLancamento;
-	private Date dataCriacao;
+	private String dataCriacao;
 	private String gravadora;
 	private String nomeArtista;
-	private GenerosType dscGenero;
+	private String dscGenero;
 	
 	
 	public String getGravadora() {
@@ -36,10 +32,10 @@ public class CDs {
 		this.preco = preco;
 	}
 	
-	public Date getDataCriacao() {
+	public String getDataCriacao() {
 		return dataCriacao;
 	}
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(String dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 	public int getDataLancamento() {
@@ -60,10 +56,11 @@ public class CDs {
 	public void setNomeArtista(String nomeArtista) {
 		this.nomeArtista = nomeArtista;
 	}
-	public GenerosType getDscGenero() {
+	
+	public String getDscGenero() {
 		return dscGenero;
 	}
-	public void setDscGenero(GenerosType dscGenero) {
+	public void setDscGenero(String dscGenero) {
 		this.dscGenero = dscGenero;
 	}
 	@Override

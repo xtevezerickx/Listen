@@ -22,13 +22,12 @@ public class UploadController {
 	@RequestMapping("uploadImagem")
 	public String formUpload(int cdId,Model model){
 		model.addAttribute("cdId",cdId);
-		System.out.println("passou por aqui? cdid"+cdId);
 		return "cd/uploadImagem";
 	}
 
 	@RequestMapping("upload")
-		public String handleFormUpload(@RequestParam("file") MultipartFile file,int cdId) throws IOException{
-		System.out.println("O id do Cd e:"+cdId);	
+		public String handleFormUpload(@RequestParam("file") MultipartFile file,int cdId,Model model) throws IOException{
+
 		
 		if(!file.isEmpty()){
 				BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
@@ -36,7 +35,7 @@ public class UploadController {
 				File destination = new File(local);
 				ImageIO.write(src, "PNG", destination);	
 		}
-
+			model.addAttribute("msg","Parabéns você adicionou uma capa para o CD");
 			return "redirect:listarCd";
 		}
 	

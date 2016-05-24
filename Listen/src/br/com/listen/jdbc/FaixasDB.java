@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.listen.model.CDs;
 import br.com.listen.model.Faixas;
 
 public class FaixasDB extends Conexao {
@@ -89,6 +90,47 @@ public class FaixasDB extends Conexao {
 			this.close();
 		}
 		return lista;
+	}
+
+	public int descobreUltimaFaixa(int cdId) throws SQLException,Exception{
+		Connection con = null;
+		try{
+			con=this.getConexao();
+		}catch(Exception e){
+			throw e;
+		}
+
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try{
+			pst = con.prepareStatement("SELECT MAX(numFaixa) FROM Faixa WHERE idCd = ?");
+			pst.setInt(1, cdId);
+			rs = pst.executeQuery();
+			if(rs.next()){
+				return rs.getInt(1) + 1;
+			}else{
+				return 1;
+			}
+		}catch(Exception e){
+			throw e;
+		}
+	}
+	
+	public void update(String faixa,int idCd) throws Exception {
+		PreparedStatement pst = null;
+		Connection con = null;
+		try {
+			con = this.getConexao();
+			String stn = "UPDATE faixa SET dscFaixa=? WHERE idCd=?";
+			pst = con.prepareStatement(stn);
+			pst.setString(1, faixa);
+			pst.setInt(2, idCd);
+			pst.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			this.close();
+		}
 	}
 	
 

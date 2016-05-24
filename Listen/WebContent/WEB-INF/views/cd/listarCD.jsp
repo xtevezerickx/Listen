@@ -7,6 +7,19 @@
 		text-align: center;
 	}
 </style>
+<script type="text/javascript">
+
+function aumenta(obj){
+    obj.height=obj.height*3;
+	obj.width=obj.width*3;
+}
+ 
+function diminui(obj){
+	obj.height=obj.height/3;
+	obj.width=obj.width/3;
+}
+
+</script>
 <body>
 	<div class="container-fluid text-center">
 		<div class="row content">
@@ -25,6 +38,7 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
+							<th>Capa do Album</th>
 							<th>Nome</th>
 							<th>Artista</th>
 							<th>Genero</th>
@@ -37,6 +51,10 @@
 					<tbody>
 						<c:forEach items="${cds}" var="cd">
 							<tr>
+								<td><img src=<c:url value='/imagens/CD${cd.idCD}.png' />
+								 width="50px" height="50px" alt="/imagens/CD.png"
+								
+								 ></td>
 								<td>${cd.nomeCD}</td>
 								<td>${cd.nomeArtista}</td>
 								<td>${cd.dscGenero}</td>			

@@ -26,7 +26,11 @@ public class CDController {
 	@RequestMapping("cadastrarCD")
 	public String formAdicionarCD(Model model) {
 		ArrayList<GenerosType> listaGeneros = new ArrayList<GenerosType>(Arrays.asList(GenerosType.values()));
-		model.addAttribute("listaGeneros", listaGeneros);
+		ArrayList<String> listaGenerosString = new ArrayList<String>();
+		for(int i=0;i<listaGeneros.size();i++){
+			listaGenerosString.add(i,listaGeneros.get(i).getDescricao());
+		}
+		model.addAttribute("listaGeneros", listaGenerosString);
 		return "cd/cadastrarCD";
 	}
 
@@ -40,47 +44,47 @@ public class CDController {
 	public String alterarCD(int cdId, Model model) throws Exception {
 		TabelaCDDB bd = new TabelaCDDB();
 		CDs cd = bd.buscaPeloId(cdId);
-		System.out.println("O cd é :"+cd);
 		ArrayList<GenerosType> listaGeneros = new ArrayList<GenerosType>(Arrays.asList(GenerosType.values()));
-		model.addAttribute("listaGeneros", listaGeneros);
+		ArrayList<String> listaGenerosString = new ArrayList<String>();
+		for(int i=0;i<listaGeneros.size();i++){
+			listaGenerosString.add(i,listaGeneros.get(i).getDescricao());
+		}
+		System.out.println(listaGenerosString);
+		model.addAttribute("listaGeneros", listaGenerosString);
 		ArrayList<Faixas> listaFaixas=new TabelaCDDB().listarFaixasPorId(cdId);
-		System.out.println("lista de faixas em mostrar cd e:"+listaFaixas);
 		model.addAttribute("listaFaixas",listaFaixas);
 		model.addAttribute("cd", cd);
 
 		return "cd/mostrarCD";
 	}
 	@RequestMapping("alterarCd")
-	public String alterarCd(CDs cd,@RequestParam("genero")String genero)throws Exception{
-		System.out.println(cd);
-		cd.setDscGenero(GenerosType.valueOf(genero));
-		TabelaCDDB bd = new TabelaCDDB();
-		bd.update(cd);
+	public String alterarCd(CDs cd,@RequestParam("faixa") ArrayList<String> faixas)throws Exception{
+		TabelaCDDB bdCd = new TabelaCDDB();
+		System.out.println("O cd para update é"+ cd);
+		bdCd.update(cd);
+		FaixasDB bdFaixa = new FaixasDB();
+		for(int i=0;i<faixas.size();i++){
+			bdFaixa.update(faixas.get(i), cd.getIdCD());
+		}		
 		return "redirect:listarCd";
 	}
 
 	@RequestMapping("mostrarFaixa")
 	public String formCadastrarFaixa(int cdId, Model model) throws Exception {
-		System.out.println("entrou no mostrar faixa com id:" + cdId);
 		model.addAttribute("cdId", cdId);
-		
 		return "cd/mostrarFaixa";
 	}
 
 	@RequestMapping("adicionarFaixa")
 	public String adicionarFaixa(Model model, int cdId, @RequestParam("faixa") ArrayList<String> faixa)
 			throws SQLException, Exception {
-		System.out.println("entrou no adicionarFaixa com id:" + cdId);
 		cadastrarFaixa(cdId, faixa);
 		model.addAttribute("msg", "Você adicionou novas faixas com sucesso!");
 		return "redirect:listarCd";
 	}
 
 	@RequestMapping("adicionarCd")
-	public String AdicionarCD(Model model, CDs cd, @RequestParam("genero") String genero)
-			throws SQLException, Exception {
-		cd.setDscGenero(GenerosType.valueOf(genero));
-		System.out.println(cd);
+	public String AdicionarCD(Model model, CDs cd)	throws SQLException, Exception {
 		new TabelaCDDB().insert(cd);
 		model.addAttribute("msg", "Você adicionou um novo CD com sucesso!");
 		return "redirect:listarCd";
@@ -91,7 +95,7 @@ public class CDController {
 		Faixas f = new Faixas();
 		for (int i = 0; i < faixa.size(); i++) {
 			if (!(faixa.get(i) == null)) {
-				f.setNumFaixa(i + 1);
+				f.setNumFaixa(bd.descobreUltimaFaixa(cdId));
 				f.setDscFaixa(faixa.get(i));
 				f.setIdCd(cdId);
 				if (!(f.getDscFaixa() == "")) {
@@ -123,21 +127,20 @@ public class CDController {
 	
 		for(int i=0;i<listaGeneros.size();i++){
 			Genero genero = new Genero();
-			genero.setQtdGenero(new GeneroDB().buscaQuantidadePorGenero(listaGeneros.get(i).name()));
+			genero.setQtdGenero(new GeneroDB().buscaQuantidadePorGenero(listaGeneros.get(i).getDescricao()));
 			genero.setDscGenero(listaGeneros.get(i).getDescricao());
 			listaQuantidadePorGenero.add(genero);
 		}
 		
 		TreeSet<Artista> tree = new TabelaCDDB().listaTodosArtistasOrdem();
 		List<Artista> listaArtistas = new ArrayList<Artista>(tree);
-		
-		System.out.println("antes do loop"+listaArtistas);
+
 		
 		for(int i=0;i<listaArtistas.size();i++){
 			listaArtistas.get(i).setQtdArtista(new ArtistaDB().buscaQuantidaePorArtista(listaArtistas.get(i).getNomeArtista()));
 		}
 		
-		System.out.println("depois do loop"+listaArtistas);
+
 			
 		model.addAttribute("cds", new TabelaCDDB().buscaTodosLancamentos());
 		model.addAttribute("quantidadePorGenero",listaQuantidadePorGenero);	
