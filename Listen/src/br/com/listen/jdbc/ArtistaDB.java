@@ -5,10 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import br.com.listen.model.Artista;
-import br.com.listen.model.CDs;
 
 public class ArtistaDB extends Conexao{
 

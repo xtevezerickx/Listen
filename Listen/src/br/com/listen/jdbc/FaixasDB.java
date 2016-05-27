@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.listen.model.CDs;
 import br.com.listen.model.Faixas;
 
 public class FaixasDB extends Conexao {

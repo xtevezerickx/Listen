@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.TreeSet;
 
 import br.com.listen.model.Artista;
 import br.com.listen.model.CDs;
@@ -105,6 +104,48 @@ public class TabelaCDDB extends Conexao {
 		return lista;
 	}
 	
+	public ArrayList<CDs> listarPaginado(int numeroPagina) throws Exception{
+		ArrayList<CDs> lista = new ArrayList<CDs>();
+		Connection con = null;
+		try {
+			con = this.getConexao();
+		} catch (Exception e) {
+			throw e;
+		}
+		ResultSet rs = null;
+		PreparedStatement pst = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			numeroPagina=(numeroPagina-1)*8;
+			pst = con.prepareStatement("SELECT * FROM cd LIMIT ?,8");
+			pst.setInt(1, numeroPagina);
+			rs=pst.executeQuery();
+						
+			while (rs.next()) {
+				CDs cd = new CDs();
+				cd.setIdCD(rs.getInt("idCd"));
+				cd.setNomeCD(rs.getString("nomeCd"));
+				cd.setPreco(rs.getDouble("preco"));
+				cd.setGravadora(rs.getString("gravadora"));
+				cd.setDataLancamento(rs.getInt("dataLancamento"));
+				cd.setDataCriacao(sdf.format(rs.getDate("dataCadastro")));
+				cd.setDscGenero(rs.getString("dscGenero"));
+				cd.setNomeArtista(rs.getString("nomeArtista"));
+				lista.add(cd);
+			}
+		} catch (SQLException e) {
+			throw e;
+		} catch (Exception e) {
+			System.out.println("Erro Desconhecido" + e.getMessage());
+			throw e;
+		} finally {
+			if (rs != null)
+				rs.close();
+			this.close();
+		}
+		return lista;
+	}
+	
 	public ArrayList<CDs> buscaTodosLancamentos() throws SQLException, Exception {
 		ArrayList<CDs> lista = new ArrayList<CDs>();
 		Connection con = null;
@@ -144,8 +185,8 @@ public class TabelaCDDB extends Conexao {
 		return lista;
 	}
 
-	public TreeSet<Artista> listaTodosArtistasOrdem() throws SQLException, Exception {
-		TreeSet<Artista> lista = new TreeSet<Artista>();
+	public ArrayList<Artista> listaTodosArtistasOrdem() throws SQLException, Exception {
+		ArrayList<Artista> lista = new ArrayList<Artista>();
 		Connection con = null;
 		try {
 			con = this.getConexao();
@@ -156,7 +197,7 @@ public class TabelaCDDB extends Conexao {
 		Statement stm = null;
 		try {
 			stm = con.createStatement();
-			rs = stm.executeQuery("SELECT nomeArtista FROM CD");
+			rs = stm.executeQuery("SELECT DISTINCT nomeArtista FROM cd ORDER BY nomeArtista");
 			while (rs.next()) {
 				Artista artista= new Artista();
 				artista.setNomeArtista(rs.getString("nomeArtista"));

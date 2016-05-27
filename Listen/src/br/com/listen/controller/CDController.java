@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.TreeSet;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -110,13 +109,28 @@ public class CDController {
 	}
 
 	@RequestMapping("listarCd")
-	public String lista(String msg, Model model) throws SQLException, Exception {
+	public String lista(String msg, Model model,Integer pag) throws SQLException, Exception {
+		System.out.println(pag);
 		TabelaCDDB bd = new TabelaCDDB();
 		List<CDs> listacd = bd.findAll();
-		model.addAttribute("cds", listacd);
+		
+		int quantidadePaginas = quantidadeDePaginas(listacd.size());
+		ArrayList<Integer> qtdPaginaLista = new ArrayList<Integer>();
+		for(int i=0;i<quantidadePaginas;i++){
+			qtdPaginaLista.add(i+1);
+		}
+		
+		if(pag!=null){
+			model.addAttribute("cds", new TabelaCDDB().listarPaginado(pag));	
+		}else{
+			model.addAttribute("cds",new TabelaCDDB().listarPaginado(1));
+		}
 		model.addAttribute("msg", msg);
+		model.addAttribute("paginas",qtdPaginaLista);
 		return "cd/listarCD";
 	}
+	
+	
 
 	@RequestMapping("index")
 	public void index(Model model) throws SQLException, Exception {
@@ -132,21 +146,28 @@ public class CDController {
 			listaQuantidadePorGenero.add(genero);
 		}
 		
-		TreeSet<Artista> tree = new TabelaCDDB().listaTodosArtistasOrdem();
-		List<Artista> listaArtistas = new ArrayList<Artista>(tree);
+		List<Artista> listaArtistas = new TabelaCDDB().listaTodosArtistasOrdem();
 
-		
 		for(int i=0;i<listaArtistas.size();i++){
 			listaArtistas.get(i).setQtdArtista(new ArtistaDB().buscaQuantidaePorArtista(listaArtistas.get(i).getNomeArtista()));
 		}
 		
-
-			
+		
+		
 		model.addAttribute("cds", new TabelaCDDB().buscaTodosLancamentos());
 		model.addAttribute("quantidadePorGenero",listaQuantidadePorGenero);	
 		model.addAttribute("listaArtistas",listaArtistas);
 		model.addAttribute("listaDeFaixas", new FaixasDB().listarTodasFaixas());
-
+		//model.addAttribute("quantidadePaginas")
+	}
+	
+	
+	public int quantidadeDePaginas(int numero){
+		if(numero%8==0){
+			return numero/8;
+		}else{
+			return Math.round(numero/8)+1;
+		}
 	}
 
 	

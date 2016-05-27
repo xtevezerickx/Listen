@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@include file="/header.jspf"%>
 <style>
 	.table th{
@@ -87,4 +87,20 @@ function diminui(obj){
 		</div>
 	</div>
 </body>
+<footer style= "background-color: white;" class="text-center footer">
+<ul class="pager">
+	<li><a href="listarCd?pag=${paginas[0]}">Primeira</a></li>
+
+
+			<c:forEach items="${paginas}" var="pagina" >
+	
+				<li><a href="listarCd?pag=${pagina}">${pagina}</a></li>
+			
+			</c:forEach>
+		
+		
+<li><a href="listarCd?pag=${fn:length(paginas)}">Ultima</a></li>
+</ul>
+
+</footer>
 <%@include file="/footer.jspf"%>

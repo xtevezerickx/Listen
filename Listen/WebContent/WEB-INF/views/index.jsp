@@ -13,7 +13,9 @@ $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
 });
 
-
+$(function() {
+    $( "#accordion" ).accordion();
+  });
 
 </script>
 <style>
@@ -52,7 +54,6 @@ $(document).ready(function(){
 										<b class="price">Pre&ccedilo R$ ${cd.preco}</b>
 										<p>
 										
-											
 											<button type="button"class="btn btn-primary btn-md btn-block">
 											
 											Adicionar ao Carrinho
@@ -87,9 +88,7 @@ $(document).ready(function(){
 												</button>
 											  
 											  </a>
-										
-											 
-											
+						
 										</p>
 										
 									</div>
