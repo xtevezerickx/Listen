@@ -29,7 +29,7 @@ public class UploadController {
 		
 		if(!file.isEmpty()){
 				BufferedImage src = ImageIO.read(new ByteArrayInputStream(file.getBytes()));
-				String local="C:\\Users\\Erick Maia\\git\\Listen2\\Listen\\WebContent\\imagens\\CD"+cdId+".png";
+				String local="C:\\Users\\7332806\\git\\Listen\\Listen\\WebContent\\imagens\\CD"+cdId+".png";
 				File destination = new File(local);
 				ImageIO.write(src, "PNG", destination);	
 		}
