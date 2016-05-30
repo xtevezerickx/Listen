@@ -22,6 +22,8 @@ import br.com.listen.utils.GenerosType;
 
 @Controller
 public class CDController {
+	
+	
 	@RequestMapping("cadastrarCD")
 	public String formAdicionarCD(Model model) {
 		ArrayList<GenerosType> listaGeneros = new ArrayList<GenerosType>(Arrays.asList(GenerosType.values()));
@@ -38,6 +40,7 @@ public class CDController {
 		new TabelaCDDB().delete(cdId);
 		return "redirect:listarCd";
 	}
+
 
 	@RequestMapping("mostrarCD")
 	public String alterarCD(int cdId, Model model) throws Exception {
@@ -57,14 +60,27 @@ public class CDController {
 		return "cd/mostrarCD";
 	}
 	@RequestMapping("alterarCd")
-	public String alterarCd(CDs cd,@RequestParam("faixa") ArrayList<String> faixas)throws Exception{
+	public String alterarCd(CDs cd, @RequestParam("faixa") ArrayList<String> faixas,Model model)throws Exception{
 		TabelaCDDB bdCd = new TabelaCDDB();
-		System.out.println("O cd para update é"+ cd);
 		bdCd.update(cd);
+		
+		
+		ArrayList<Faixas> listaFaixasUpdate = new ArrayList<Faixas>();
+		for(int i=0;i<faixas.size();i++){
+			Faixas f = new Faixas();
+			f.setIdCd(cd.getIdCD());
+			f.setNumFaixa(i+1);
+			f.setDscFaixa(faixas.get(i));
+			listaFaixasUpdate.add(f);
+		}
+		
+		System.out.println("Faixas para update"+faixas);
+		System.out.println("id do cd para update"+cd.getIdCD());
 		FaixasDB bdFaixa = new FaixasDB();
 		for(int i=0;i<faixas.size();i++){
-			bdFaixa.update(faixas.get(i), cd.getIdCD());
+			bdFaixa.update(listaFaixasUpdate.get(i));
 		}		
+		model.addAttribute("msg", "Você alterou um CD com sucesso!");
 		return "redirect:listarCd";
 	}
 
@@ -125,6 +141,7 @@ public class CDController {
 		}else{
 			model.addAttribute("cds",new TabelaCDDB().listarPaginado(1));
 		}
+		
 		model.addAttribute("msg", msg);
 		model.addAttribute("paginas",qtdPaginaLista);
 		return "cd/listarCD";
@@ -158,11 +175,11 @@ public class CDController {
 		model.addAttribute("quantidadePorGenero",listaQuantidadePorGenero);	
 		model.addAttribute("listaArtistas",listaArtistas);
 		model.addAttribute("listaDeFaixas", new FaixasDB().listarTodasFaixas());
-		//model.addAttribute("quantidadePaginas")
+		
 	}
 	
 	
-	public int quantidadeDePaginas(int numero){
+	private int quantidadeDePaginas(int numero){
 		if(numero%8==0){
 			return numero/8;
 		}else{

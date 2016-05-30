@@ -115,15 +115,16 @@ public class FaixasDB extends Conexao {
 		}
 	}
 	
-	public void update(String faixa,int idCd) throws Exception {
+	public void update(Faixas faixa) throws Exception {
 		PreparedStatement pst = null;
 		Connection con = null;
 		try {
 			con = this.getConexao();
-			String stn = "UPDATE faixa SET dscFaixa=? WHERE idCd=?";
+			String stn = "UPDATE faixa SET dscFaixa=? WHERE idCd=? AND numFaixa=?";
 			pst = con.prepareStatement(stn);
-			pst.setString(1, faixa);
-			pst.setInt(2, idCd);
+			pst.setString(1, faixa.getDscFaixa());
+			pst.setInt(2, faixa.getIdCd());
+			pst.setInt(3, faixa.getNumFaixa());
 			pst.executeUpdate();
 		} catch (Exception e) {
 			throw e;

@@ -1,6 +1,6 @@
 package br.com.listen.utils;
 
-public enum GenerosType implements Comparable<GenerosType>{
+public enum GenerosType{
 	ELETRONICA("Eletronica"),
 	HIPHOP("Hip-Hop"),
 	INDIE("Indie"),

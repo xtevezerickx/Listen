@@ -159,7 +159,7 @@ public class TabelaCDDB extends Conexao {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			stm = con.createStatement();
-			rs = stm.executeQuery("SELECT * FROM cd ORDER BY dataLancamento DESC,idCd ASC LIMIT 0,8");
+			rs = stm.executeQuery("SELECT * FROM cd ORDER BY dataLancamento DESC,idCd DESC LIMIT 0,8");
 			while (rs.next()) {
 				CDs cd = new CDs();
 				cd.setIdCD(rs.getInt("idCd"));

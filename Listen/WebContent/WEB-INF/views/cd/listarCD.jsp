@@ -63,21 +63,20 @@ function diminui(obj){
 								<td>${cd.dataLancamento}</td>
 								
 								<th>
-								<a href="mostrarFaixa?cdId=${cd.idCD}" class="btn btn-success btn-sm"> <span
-										class="glyphicon glyphicon-plus"></span> Adicionar Faixas
+								<a href="mostrarFaixa?cdId=${cd.idCD}" class="btn btn-success btn-sm">  Adicionar Faixas <span
+										class="glyphicon glyphicon-plus"></span>
 								</a>
 								</th>
 								<th>
-								<a href="uploadImagem?cdId=${cd.idCD}" class="btn btn-info btn-sm"> <span
-										class="glyphicon glyphicon-picture"></span> Adicionar Imagem
+								<a href="uploadImagem?cdId=${cd.idCD}" class="btn btn-info btn-sm">  Adicionar Imagem <span
+										class="glyphicon glyphicon-picture"></span>
 								</a>
 								</th>
 							
-								<th><a href="mostrarCD?cdId=${cd.idCD}" class="btn btn-primary btn-sm"> <span
-										class="glyphicon glyphicon-search"></span> Alterar
+								<th><a href="mostrarCD?cdId=${cd.idCD}" class="btn btn-primary btn-sm">  Alterar <span
+										class="glyphicon glyphicon-search"></span>
 								</a></th>
-								<th><a href="removerCD?cdId=${cd.idCD}" class="btn btn-danger btn-sm">
-										<span class="glyphicon glyphicon-trash"></span> Remover
+								<th><a href="removerCD?cdId=${cd.idCD}" class="btn btn-danger btn-sm"> Remover <span class="glyphicon glyphicon-trash"></span>
 								</a></th>
 							</tr>
 						</c:forEach>
